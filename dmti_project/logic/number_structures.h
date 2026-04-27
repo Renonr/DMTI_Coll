@@ -15,6 +15,7 @@ struct Number{
 
     QString toString(){
         QString res;
+        res.reserve(n + 1);
         for(int i = 0; i <= n; i++) res += QString::number(digits[i]);
         return res;
     }
