@@ -27,7 +27,6 @@ HEADERS += \
 FORMS += \
     mainwindow.ui
 
-TRANSLATIONS +=
 CONFIG += lrelease
 CONFIG += embed_translations
 
