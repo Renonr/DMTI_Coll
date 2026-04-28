@@ -18,3 +18,31 @@ int Natural::COM_NN_D(const Number &num1, const Number &num2)
         return 0;
     }
 }
+
+Number Natural::MUL_ND_N(const Number &num, int digit) 
+{
+    if (digit == 0) return Number("0");
+    if (digit == 1) return Number(num.toString());
+
+    std::vector<int> new_num;
+    int in_mind = 0;
+    
+    for (int i = num.n; i >= 0; i--) {
+        int tmp = num.digits[i]*digit + in_mind;
+        if (tmp > 9) {
+            new_num.push_back(tmp % 10);
+            in_mind = tmp / 10;
+        } else {
+            new_num.push_back(tmp);
+            in_mind = 0;
+        }      
+    }
+
+    if (in_mind > 0) new_num.push_back(in_mind);
+    
+    QString result;
+    result.reserve(new_num.size());
+    for (int i = new_num.size()-1; i >= 0; i--) result += QString::number(new_num[i]);
+
+    return Number(result);
+}
