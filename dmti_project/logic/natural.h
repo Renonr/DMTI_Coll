@@ -15,7 +15,7 @@ public:
 
     Number ADD_1N_N(const Number &num);
 
-    Number ADD_NN_N(const Number &num);
+    Number ADD_NN_N(const Number &num1, const Number &num2);
 
     Number SUB_NN_N(const Number &num);
 
