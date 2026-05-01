@@ -22,6 +22,15 @@ struct Number{
         digits = other.digits;
     }
 
+    Number& operator=(const Number &other){
+        if(this == &other) return *this;
+
+        n = other.n;
+        digits = other.digits;
+
+        return *this;
+    }
+
     QString toString() const{
         QString res;
         res.reserve(n + 1);
