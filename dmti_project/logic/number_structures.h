@@ -13,6 +13,10 @@ struct Number{
         for(auto ch : s) digits.push_back(ch.digitValue());
     }
 
+    Number(){
+        n = 0;
+    }
+
     QString toString() const{
         QString res;
         res.reserve(n + 1);
