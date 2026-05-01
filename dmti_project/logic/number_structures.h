@@ -14,7 +14,7 @@ struct Number{
     }
 
     Number(){
-        n = 1;
+        n = 0;
         digits.push_back(0);
     }
 
@@ -63,7 +63,7 @@ struct IntegerNumber{
     // конструктор по умолчанию; создаёт ноль
     IntegerNumber(){
         sign = false;
-        n = 1;
+        n = 0;
         digits.push_back(0);
     }
 
