@@ -55,12 +55,14 @@ Number Natural::ADD_NN_N(const Number &num1, const Number &num2){
 
     int to_next;
 
-    int i = bigger_ptr->digits.size() - 1;
-    int j = smaller_ptr->digits.size() - 1;
+    int i = bigger_ptr->n - 1;
+    int j = smaller_ptr->n - 1;
+
+    int sum;
 
     while(i >= 0 || to_next > 0){
 
-        int sum = to_next;
+        sum = to_next;
 
         if(i >= 0) sum += bigger_ptr->digits[i--];
         if(j >= 0) sum += smaller_ptr->digits[j--];
