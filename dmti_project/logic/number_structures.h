@@ -14,7 +14,8 @@ struct Number{
     }
 
     Number(){
-        n = 0;
+        n = 1;
+        digits.push_back(0);
     }
 
     Number(const Number &other){
@@ -57,6 +58,13 @@ struct IntegerNumber{
                 digits.push_back(ch.digitValue());
             }
         }
+    }
+
+    // конструктор по умолчанию; создаёт ноль
+    IntegerNumber(){
+        sign = false;
+        n = 1;
+        digits.push_back(0);
     }
 
     QString toString() const{
