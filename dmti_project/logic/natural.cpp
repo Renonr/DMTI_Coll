@@ -80,3 +80,42 @@ Number Natural::ADD_NN_N(const Number &num1, const Number &num2){
 
     return resNum;
 }
+
+Number Natural::GCF_NN_N(const Number &num1, const Number &num2){
+
+    bool is_num1_zero = NZER_N_B(num1);
+    bool is_num2_zero = NZER_N_B(num2);
+
+    Number GCF;
+
+    if(is_num1_zero && is_num2_zero){
+        GCF.digits.push_back(1);
+        GCF.n += 1;
+        return GCF;
+    } else if(is_num1_zero){
+        Number GCF(num2);
+        return GCF;
+    } else if(is_num2_zero){
+        Number GCF(num1);
+        return GCF;
+    }
+
+    const Number *bigger_ptr = (COM_NN_D(num1, num2) == 1) ? &num2 : &num1;
+    const Number *smaller_ptr = (bigger_ptr == &num1) ? &num2 : &num1;
+
+    Number curr_remain = MOD_NN_N(*bigger_ptr, *smaller_ptr);
+    Number prev_remain = curr_remain;
+    Number bigger_num = *smaller_ptr;
+
+    while(NZER_N_B(curr_remain)){
+
+        prev_remain = curr_remain;
+
+        curr_remain = MOD_NN_N(bigger_num, curr_remain);
+
+        bigger_num = prev_remain;
+
+    }
+
+    return prev_remain;
+}
