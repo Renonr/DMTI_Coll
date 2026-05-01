@@ -60,6 +60,8 @@ Number Natural::ADD_NN_N(const Number &num1, const Number &num2){
 
     int sum;
 
+    int sum = 0;
+
     while(i >= 0 || to_next > 0){
 
         sum = to_next;
