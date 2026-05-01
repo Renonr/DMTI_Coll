@@ -17,6 +17,11 @@ struct Number{
         n = 0;
     }
 
+    Number(const Number &other){
+        n = other.n;
+        digits = other.digits;
+    }
+
     QString toString() const{
         QString res;
         res.reserve(n + 1);
