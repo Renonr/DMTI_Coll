@@ -55,12 +55,14 @@ Number Natural::ADD_NN_N(const Number &num1, const Number &num2){
 
     int to_next;
 
-    int i = bigger_ptr->digits.size() - 1;
-    int j = smaller_ptr->digits.size() - 1;
+    int i = bigger_ptr->n - 1;
+    int j = smaller_ptr->n - 1;
+
+    int sum;
 
     while(i >= 0 || to_next > 0){
 
-        int sum = to_next;
+        sum = to_next;
 
         if(i >= 0) sum += bigger_ptr->digits[i--];
         if(j >= 0) sum += smaller_ptr->digits[j--];
@@ -77,4 +79,43 @@ Number Natural::ADD_NN_N(const Number &num1, const Number &num2){
     resNum.n = result.size() - 1;
 
     return resNum;
+}
+
+Number Natural::GCF_NN_N(const Number &num1, const Number &num2){
+
+    bool is_num1_zero = NZER_N_B(num1);
+    bool is_num2_zero = NZER_N_B(num2);
+
+    Number GCF;
+
+    if(is_num1_zero && is_num2_zero){
+        GCF.digits.push_back(1);
+        GCF.n += 1;
+        return GCF;
+    } else if(is_num1_zero){
+        Number GCF(num2);
+        return GCF;
+    } else if(is_num2_zero){
+        Number GCF(num1);
+        return GCF;
+    }
+
+    const Number *bigger_ptr = (COM_NN_D(num1, num2) == 1) ? &num2 : &num1;
+    const Number *smaller_ptr = (bigger_ptr == &num1) ? &num2 : &num1;
+
+    Number curr_remain = MOD_NN_N(*bigger_ptr, *smaller_ptr);
+    Number prev_remain = curr_remain;
+    Number bigger_num = *smaller_ptr;
+
+    while(NZER_N_B(curr_remain)){
+
+        prev_remain = curr_remain;
+
+        curr_remain = MOD_NN_N(bigger_num, curr_remain);
+
+        bigger_num = prev_remain;
+
+    }
+
+    return prev_remain;
 }
