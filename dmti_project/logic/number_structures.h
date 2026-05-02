@@ -85,27 +85,32 @@ struct RationalNumber {
     RationalNumber(QString nStr, QString dStr)
         : numerator(nStr), denominator(dStr) {}
 
-    RationalNumber(){}
+    RationalNumber(){
+    }
 
     QString toString() const {
         return numerator.toString() + "/" + denominator.toString();
     }
 };
 
-struct Polynomial {
-    int m;
+struct PolynomialNumber {
+    int degree;
     std::vector<RationalNumber> coefficients;
 
-    Polynomial(int degree, std::vector<RationalNumber> coeffs)
-        : m(degree), coefficients(coeffs) {}
+    PolynomialNumber(int degree, std::vector<RationalNumber> coeffs)
+        : degree(degree), coefficients(coeffs) {}
+
+    PolynomialNumber(){
+        degree = 0;
+    }
 
     QString toString() const {
         if (coefficients.empty()) return "0";
 
         QString res;
-        for (int i = 0; i <= m; ++i) {
+        for (int i = 0; i <= degree; ++i) {
             QString coeffStr = coefficients[i].toString();
-            int power = m - i;
+            int power = degree - i;
 
             res += "(" + coeffStr + ")";
 
