@@ -15,6 +15,7 @@ struct Number{
 
     Number(){
         n = 0;
+        digits.push_back(0);
     }
 
     Number(const Number &other){
@@ -40,16 +41,16 @@ struct Number{
 };
 
 struct IntegerNumber{
-    bool sign;
+    bool is_neg;
     int n;
     std::vector<int> digits;
 
     IntegerNumber(QString s){
         if (s[0] == '-'){
-            sign = true;
+            is_neg = true;
             n = s.length() - 2;
         } else{
-            sign = false;
+            is_neg = false;
             n = s.length() - 1;
         }
         for(auto ch : std::as_const(s)){
@@ -59,10 +60,17 @@ struct IntegerNumber{
         }
     }
 
+    // конструктор по умолчанию; создаёт ноль
+    IntegerNumber(){
+        is_neg = false;
+        n = 0;
+        digits.push_back(0);
+    }
+
     QString toString() const{
         QString res;
         res.reserve(n + 2);
-        if (sign){
+        if (is_neg){
             res += "-";
         }
         for(int i = 0; i <= n; i++) res += QString::number(digits[i]);
