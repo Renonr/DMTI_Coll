@@ -47,10 +47,10 @@ struct IntegerNumber{
 
     IntegerNumber(QString s){
         if (s[0] == '-'){
-            sign = true;
+            is_neg = true;
             n = s.length() - 2;
         } else{
-            sign = false;
+            is_neg = false;
             n = s.length() - 1;
         }
         for(auto ch : std::as_const(s)){
@@ -62,7 +62,7 @@ struct IntegerNumber{
 
     // конструктор по умолчанию; создаёт ноль
     IntegerNumber(){
-        sign = false;
+        is_neg = false;
         n = 0;
         digits.push_back(0);
     }
@@ -70,7 +70,7 @@ struct IntegerNumber{
     QString toString() const{
         QString res;
         res.reserve(n + 2);
-        if (sign){
+        if (is_neg){
             res += "-";
         }
         for(int i = 0; i <= n; i++) res += QString::number(digits[i]);
