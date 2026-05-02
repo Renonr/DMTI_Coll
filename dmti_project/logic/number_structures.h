@@ -41,7 +41,7 @@ struct Number{
 };
 
 struct IntegerNumber{
-    bool sign;
+    bool is_neg;
     int n;
     std::vector<int> digits;
 
