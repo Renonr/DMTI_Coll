@@ -85,6 +85,8 @@ struct RationalNumber {
     RationalNumber(QString nStr, QString dStr)
         : numerator(nStr), denominator(dStr) {}
 
+    RationalNumber(){}
+
     QString toString() const {
         return numerator.toString() + "/" + denominator.toString();
     }
