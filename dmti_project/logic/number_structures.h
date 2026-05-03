@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <qstring.h>
-#include "polynomial.h"
+
 
 struct Number{
     int n;
@@ -61,7 +61,6 @@ struct IntegerNumber{
         }
     }
 
-    // конструктор по умолчанию; создаёт ноль
     IntegerNumber(){
         is_neg = false;
         n = 0;
@@ -137,7 +136,7 @@ struct PolynomialNumber {
         return coefficients[degree];
     }
 
-    PolynomialNumber operator=(const PolynomialNumber &other){
+    /*PolynomialNumber operator=(const PolynomialNumber &other){
 
         if(this == &other) return *this;
 
@@ -148,14 +147,14 @@ struct PolynomialNumber {
         }
 
         return *this;
-    }
+    }*/
 
-    PolynomialNumber operator+(const PolynomialNumber &other){
+    /*PolynomialNumber operator+(const PolynomialNumber &other){
 
         Polynomial calc;
 
         return calc.ADD_PP_P(*this, other);
-    }
+    }*/
 
     QString toString() const {
         if (coefficients.empty()) return "0";
