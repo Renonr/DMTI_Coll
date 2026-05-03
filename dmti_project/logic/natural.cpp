@@ -121,3 +121,16 @@ Number Natural::GCF_NN_N(const Number &num1, const Number &num2){
 
     return prev_remain;
 }
+
+// N-7: MUL_Nk_N — умножение натурального числа на 10^k
+Number Natural::MUL_Nk_N(const Number &num, int k) {
+    if (k <= 0) return num;
+    if (num.digits.size() == 1 && num.digits[0] == 0) return num;
+
+    Number result = num;
+    for (int i = 0; i < k; ++i) {
+        result.digits.push_back(0);
+    }
+    result.n += k;
+    return result;
+}

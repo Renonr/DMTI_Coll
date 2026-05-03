@@ -30,3 +30,9 @@ IntegerNumber Integer::MUL_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &
 
     return int_result;
 }
+
+// Z-2: SGN_Z_D — знак числа: 1 положительное, 0 ноль, -1 отрицательное
+int Integer::SGN_Z_D(const IntegerNumber &num) {
+    if (num.n == 0 && num.digits.size() == 1 && num.digits[0] == 0) return 0;
+    return num.is_neg ? -1 : 1;
+}

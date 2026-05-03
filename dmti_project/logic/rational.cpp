@@ -27,3 +27,20 @@ RationalNumber Rational::MUL_QQ_Q(const RationalNumber &frac1, const RationalNum
 
     return result;
 }
+
+// Q-1: RED_Q_Q — сокращение дроби
+RationalNumber Rational::RED_Q_Q(const RationalNumber &frac) {
+    Number abs_num = ABS_Z_N(frac.numerator);
+    Number gcd = GCF_NN_N(abs_num, frac.denominator);
+
+    IntegerNumber gcd_int = TRANS_N_Z(gcd);
+
+    RationalNumber result;
+    result.numerator = DIV_ZZ_Z(frac.numerator, gcd_int);
+
+    IntegerNumber den_int = TRANS_N_Z(frac.denominator);
+    IntegerNumber new_den = DIV_ZZ_Z(den_int, gcd_int);
+    result.denominator = TRANS_Z_N(new_den);
+
+    return result;
+}
