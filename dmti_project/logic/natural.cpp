@@ -76,7 +76,7 @@ Number Natural::ADD_NN_N(const Number &num1, const Number &num2){
 
     std::reverse(result.begin(), result.end());
 
-    Number resNum("");
+    Number resNum;
     resNum.digits = result;
     resNum.n = result.size() - 1;
 
