@@ -4,11 +4,6 @@ Rational::Rational() {}
 
 RationalNumber Rational::MUL_QQ_Q(const RationalNumber &frac1, const RationalNumber &frac2){
 
-    // по умолчанию я сокращаю дроби, чтобы вычисления были
-    // менее затратными по ресурсам
-    // но, возможно, это не подразумевается самой функцией
-    // а может и вовсе сокращение более затратно, чем умножение)) 
-
     RationalNumber red_frac1 = RED_Q_Q(frac1);
     RationalNumber red_frac2 = RED_Q_Q(frac2);
 
@@ -20,8 +15,6 @@ RationalNumber Rational::MUL_QQ_Q(const RationalNumber &frac1, const RationalNum
 
     result.numerator = res_numer;
     result.denominator = res_denom;
-
-    // аналогично, результат тоже пытаемся сократить
 
     result = RED_Q_Q(result);
 
