@@ -2,6 +2,7 @@
 
 Natural::Natural() {}
 
+//1 функция
 int Natural::COM_NN_D(const Number &num1, const Number &num2)
 {
     if (num1.n > num2.n){
@@ -19,6 +20,35 @@ int Natural::COM_NN_D(const Number &num1, const Number &num2)
     }
 }
 
+//2 функция
+bool Natural::NZER_N_B(const Number &num)
+{
+    if (num.n == 0 && num.digits[0] == 0){
+        return false;
+    }
+    return true;
+}
+
+//3 функция
+Number Natural::ADD_1N_N(const Number &num)
+{
+    Number new_num = num;
+
+    for(int i = new_num.n; i >= 0; i--){
+        if (new_num.digits[i] == 9){
+            new_num.digits.at(i) = 0;
+        } else{
+            new_num.digits.at(i) += 1;
+            return new_num;
+        }
+    }
+
+    new_num.n++;
+    new_num.digits.insert(new_num.digits.begin(), 1);
+    return new_num;
+}
+
+//6 функция
 Number Natural::MUL_ND_N(const Number &num, int digit) 
 {
     if (digit == 0) return Number("0");
@@ -47,18 +77,48 @@ Number Natural::MUL_ND_N(const Number &num, int digit)
     return Number(result);
 }
 
+Number Natural::MUL_Nk_N(const Number &num, int k)
+{
+    return Number();
+}
+
+Number Natural::MUL_NN_N(const Number &num1, const Number &num2)
+{
+    return Number();
+}
+
+Number Natural::SUB_NDN_N(const Number &num1, const Number &num2, int digit)
+{
+    return Number();
+}
+
+Number Natural::DIV_NN_Dk(const Number &num)
+{
+    return Number();
+}
+
+Number Natural::DIV_NN_N(const Number &num)
+{
+    return Number();
+}
+
+Number Natural::MOD_NN_N(const Number &num1, const Number &num2)
+{
+    return Number();
+}
+
+//4 функция
+//Возможно хуйня (надо протестировать) (Димка вещаета: while на do while) (to_next???)
 Number Natural::ADD_NN_N(const Number &num1, const Number &num2){
     const Number *bigger_ptr = (COM_NN_D(num1, num2) == 1) ? &num2 : &num1;
     const Number *smaller_ptr = (bigger_ptr == &num1) ? &num2 : &num1;
 
     std::vector<int> result;
 
-    int to_next;
+    int to_next = 0;
 
     int i = bigger_ptr->n - 1;
     int j = smaller_ptr->n - 1;
-
-    int sum;
 
     int sum = 0;
 
@@ -83,6 +143,12 @@ Number Natural::ADD_NN_N(const Number &num1, const Number &num2){
     return resNum;
 }
 
+Number Natural::SUB_NN_N(const Number &num)
+{
+    return Number();
+}
+
+//13 функция
 Number Natural::GCF_NN_N(const Number &num1, const Number &num2){
 
     bool is_num1_zero = NZER_N_B(num1);
@@ -116,8 +182,12 @@ Number Natural::GCF_NN_N(const Number &num1, const Number &num2){
         curr_remain = MOD_NN_N(bigger_num, curr_remain);
 
         bigger_num = prev_remain;
-
     }
 
     return prev_remain;
+}
+
+Number Natural::LCM_NN_N(const Number &num1, const Number &num2)
+{
+    return Number();
 }
