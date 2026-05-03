@@ -19,7 +19,7 @@ public:
 
     RationalNumber LED_P_Q(const PolynomialNumber &p);
 
-    Number DEG_P_N(const PolynomialNumber &p);
+    int DEG_P_N(const PolynomialNumber &p);
 
     RationalNumber FAC_P_Q(const PolynomialNumber &p);
 
