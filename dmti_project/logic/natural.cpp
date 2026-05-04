@@ -143,9 +143,27 @@ Number Natural::ADD_NN_N(const Number &num1, const Number &num2){
     return resNum;
 }
 
-Number Natural::SUB_NN_N(const Number &num)
+//5 функция
+Number Natural::SUB_NN_N(const Number &num1, const Number &num2)
 {
-    return Number();
+    if (COM_NN_D(num1, num2) == 0){
+        return Number();
+    }
+
+    Number biggest = (COM_NN_D(num1, num2) == 2) ? num1 : num2;
+    Number smaller = (COM_NN_D(num1, num2) == 1) ? num1 : num2;
+
+    /*int high = smaller.n;
+    for (int i = high; i >= 0; i--){
+        if (biggest.digits[i] >= smaller.digits[i]){
+            biggest.digits[i] -= smaller.digits[i];
+        } else {
+            biggest.digits[i] = biggest.digits[i] + 10 - smaller.digits[i];
+            biggest.digits[i + 1] -= 1;
+        }
+    }*/
+
+    return biggest;
 }
 
 //13 функция
