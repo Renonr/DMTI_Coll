@@ -89,6 +89,17 @@ Number Natural::MUL_NN_N(const Number &num1, const Number &num2)
 
 Number Natural::SUB_NDN_N(const Number &num1, const Number &num2, int digit)
 {
+    if (digit == 0){
+        return Number(num1.toString());
+    } 
+    Number mul_num = MUL_ND_N(num2, digit);
+    if (COM_NN_D(num1, mul_num) == 2){
+        return SUB_NN_N(num1, mul_num);
+    }else if(COM_NN_D(num1, mul_num) == 0){
+        return Number("0");
+    }else{
+        //xz что возвращать, если num1 < num2 * digit, по условию задачи ничего не сказано 
+    }
     return Number();
 }
 
