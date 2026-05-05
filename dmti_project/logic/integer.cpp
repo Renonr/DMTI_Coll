@@ -2,6 +2,13 @@
 
 Integer::Integer() {}
 
+Number Integer::ABS_Z_N(const IntegerNumber &num) {
+    Number res;
+    res.n = num.n;
+    res.digits = num.digits;
+    return res;
+}
+
 IntegerNumber Integer::MUL_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2){
 
     bool is_negative = false;
@@ -29,4 +36,19 @@ IntegerNumber Integer::MUL_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &
     }
 
     return int_result;
+}
+
+IntegerNumber Integer::MOD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2) {
+    IntegerNumber q = DIV_ZZ_Z(num1, num2);
+    IntegerNumber r = SUB_ZZ_Z(num1, MUL_ZZ_Z(q, num2));
+    // num1 = num2*q + r
+
+    if (r.is_neg) {
+        IntegerNumber one("1");
+        q = num2.is_neg ? ADD_ZZ_Z(q, one) : SUB_ZZ_Z(q, one);
+
+        r = SUB_ZZ_Z(num1, MUL_ZZ_Z(q, num2));
+    }
+
+    return r;
 }

@@ -21,7 +21,7 @@ int Natural::COM_NN_D(const Number &num1, const Number &num2)
 
 Number Natural::MUL_ND_N(const Number &num, int digit) 
 {
-    if (digit == 0) return Number("0");
+    if (digit == 0) return Number();
     if (digit == 1) return Number(num.toString());
 
     std::vector<int> new_num;
