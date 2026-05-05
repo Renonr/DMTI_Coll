@@ -84,7 +84,26 @@ Number Natural::MUL_Nk_N(const Number &num, int k)
 
 Number Natural::MUL_NN_N(const Number &num1, const Number &num2)
 {
-    return Number();
+    Number result;
+    bool is_first = true;
+
+    for (int i = num2.n; i >= 0; i--){
+        Number curr_num = MUL_ND_N(num1, num2.digits[i]);
+        curr_num = MUL_Nk_N(curr_num, num2.n - i);
+
+        if (!NZER_N_B(curr_num)){
+            continue;
+        }
+
+        if (is_first){
+            result = curr_num;
+            is_first = false;
+        } else{
+            result = ADD_NN_N(result, curr_num);
+        }
+    }
+
+    return result;
 }
 
 Number Natural::SUB_NDN_N(const Number &num1, const Number &num2, int digit)
