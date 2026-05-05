@@ -100,7 +100,7 @@ Number Natural::SUB_NDN_N(const Number &num1, const Number &num2, int digit)
     }else{
         //xz что возвращать, если num1 < num2 * digit, по условию задачи ничего не сказано 
     }
-    return Number();
+
 }
 
 Number Natural::DIV_NN_Dk(const Number &num)
