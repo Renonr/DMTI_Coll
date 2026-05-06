@@ -7,9 +7,6 @@ Number Integer::ABS_Z_N(const IntegerNumber &num) {
     res.n = num.n;
     res.digits = num.digits;
     return res;
-Number Integer::ABS_Z_N(const IntegerNumber &num)
-{
-    return Number();
 }
 
 int Integer::SGN_Z_D(const IntegerNumber &num)
@@ -85,12 +82,9 @@ IntegerNumber Integer::MOD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &
 
     return r;
 }
+
 IntegerNumber Integer::DIV_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
 {
     return IntegerNumber();
 }
 
-IntegerNumber Integer::MOD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
-{
-    return IntegerNumber();
-}
