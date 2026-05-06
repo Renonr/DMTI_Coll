@@ -27,9 +27,9 @@ public:
 
     Number SUB_NDN_N(const Number &num1, const Number &num2, int digit);
 
-    Number DIV_NN_Dk(const Number &num);
+    Number DIV_NN_Dk(const Number &num1, const Number &num2, int k);
 
-    Number DIV_NN_N(const Number &num);
+    Number DIV_NN_N(const Number &num1, const Number &num2);
 
     Number MOD_NN_N(const Number &num1, const Number &num2);
 

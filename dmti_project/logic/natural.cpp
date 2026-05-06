@@ -10,10 +10,10 @@ int Natural::COM_NN_D(const Number &num1, const Number &num2)
     } else if (num2.n > num1.n){
         return 1;
     } else{
-        for(int i = 0; i < num1.n; i++){
-            if (num1.digits[i] > num2.digits[i]){
+        for(int i = 0; i <= num1.n; i++){
+            if (num1.digits.at(i) > num2.digits.at(i)){
                 return 2;
-            } else if (num1.digits[i] < num2.digits[i])
+            } else if (num1.digits.at(i) < num2.digits.at(i))
                 return 1;
         }
         return 0;
@@ -92,12 +92,12 @@ Number Natural::SUB_NDN_N(const Number &num1, const Number &num2, int digit)
     return Number();
 }
 
-Number Natural::DIV_NN_Dk(const Number &num)
+Number Natural::DIV_NN_Dk(const Number &num1, const Number &num2, int k)
 {
     return Number();
 }
 
-Number Natural::DIV_NN_N(const Number &num)
+Number Natural::DIV_NN_N(const Number &num1, const Number &num2)
 {
     return Number();
 }
