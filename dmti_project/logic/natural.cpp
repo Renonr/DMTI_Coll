@@ -158,28 +158,23 @@ Number Natural::MOD_NN_N(const Number &num1, const Number &num2)
 // #4 N-4
 // Сложение натуральных чисел
 // Кушаев Дмитрий 5387
-Number Natural::ADD_NN_N(const Number &num1, const Number &num2){
-    const Number *bigger_ptr = (COM_NN_D(num1, num2) == 1) ? &num2 : &num1;
+Number Natural::ADD_NN_N(const Number &num1, const Number &num2) {
+    const Number *bigger_ptr = (num1.digits.size() >= num2.digits.size()) ? &num1 : &num2;
     const Number *smaller_ptr = (bigger_ptr == &num1) ? &num2 : &num1;
 
     std::vector<int> result;
-
     int to_next = 0;
 
-    int i = bigger_ptr->n - 1;
-    int j = smaller_ptr->n - 1;
+    int i = bigger_ptr->digits.size() - 1;
+    int j = smaller_ptr->digits.size() - 1;
 
-    int sum = 0;
+    while (i >= 0 || to_next > 0) {
+        int sum = to_next;
 
-    while(i >= 0 || to_next > 0){
-
-        sum = to_next;
-
-        if(i >= 0) sum += bigger_ptr->digits[i--];
-        if(j >= 0) sum += smaller_ptr->digits[j--];
+        if (i >= 0) sum += bigger_ptr->digits[i--];
+        if (j >= 0) sum += smaller_ptr->digits[j--];
 
         result.push_back(sum % 10);
-
         to_next = sum / 10;
     }
 
