@@ -2,7 +2,9 @@
 
 Natural::Natural() {}
 
-//1 функция
+// #1 N-1
+// Сравнение натуральных чисел
+// Ковалёв Иван 5387
 int Natural::COM_NN_D(const Number &num1, const Number &num2)
 {
     if (num1.n > num2.n){
@@ -20,7 +22,9 @@ int Natural::COM_NN_D(const Number &num1, const Number &num2)
     }
 }
 
-//2 функция
+// #2 N-2
+// Проверка натурального числа на ноль
+// Клочкова Лидия 5387 (Ковалёв Иван 5387)
 bool Natural::NZER_N_B(const Number &num)
 {
     if (num.n == 0 && num.digits[0] == 0){
@@ -29,7 +33,9 @@ bool Natural::NZER_N_B(const Number &num)
     return true;
 }
 
-//3 функция
+// #3 N-3
+// Добавление единицы к натуральному числу
+// Палешева Ариадна 5387 (Ковалёв Иван 5387) 
 Number Natural::ADD_1N_N(const Number &num)
 {
     Number new_num = num;
@@ -48,7 +54,9 @@ Number Natural::ADD_1N_N(const Number &num)
     return new_num;
 }
 
-//6 функция
+// #6 N-6
+// Умножение натурального числа на цифру
+// Баданюк Валерий 5387
 Number Natural::MUL_ND_N(const Number &num, int digit) 
 {
     if (digit == 0) return Number();
@@ -77,11 +85,17 @@ Number Natural::MUL_ND_N(const Number &num, int digit)
     return Number(result);
 }
 
+// #8 N-8
+// Умножение натуральных чисел
+// Сериков Владислав 5387
 Number Natural::MUL_NN_N(const Number &num1, const Number &num2)
 {
     return Number();
 }
 
+// #9 N-9
+// Вычитание из натурального другого натурального
+// Вековищев Кирилл
 Number Natural::SUB_NDN_N(const Number &num1, const Number &num2, int digit)
 {
     if (digit == 0){
@@ -98,23 +112,33 @@ Number Natural::SUB_NDN_N(const Number &num1, const Number &num2, int digit)
 
 }
 
+// #10 N-10
+// Вычисление первой цифры деления
+// Ковалёв Иван 5387
 Number Natural::DIV_NN_Dk(const Number &num1, const Number &num2, int k)
 {
     return Number();
 }
 
+// #11 N-11
+// Неполное частного от деления с остатком
+// Клочкова Лидия 5387
 Number Natural::DIV_NN_N(const Number &num1, const Number &num2)
 {
     return Number();
 }
 
+// #12 N-12
+// Остаток от деления
+// Палешева Ариадна
 Number Natural::MOD_NN_N(const Number &num1, const Number &num2)
 {
     return Number();
 }
 
-//4 функция
-//Возможно хуйня (надо протестировать) (Димка вещаета: while на do while) (to_next???)
+// #4 N-4
+// Сложение натуральных чисел
+// Кушаев Дмитрий 5387
 Number Natural::ADD_NN_N(const Number &num1, const Number &num2){
     const Number *bigger_ptr = (COM_NN_D(num1, num2) == 1) ? &num2 : &num1;
     const Number *smaller_ptr = (bigger_ptr == &num1) ? &num2 : &num1;
@@ -149,7 +173,9 @@ Number Natural::ADD_NN_N(const Number &num1, const Number &num2){
     return resNum;
 }
 
-//5 функция
+// #5 N-5
+// Вычитание натуральных чисел
+// Грачева Елизавета 5387
 Number Natural::SUB_NN_N(const Number &num1, const Number &num2)
 {
     if (COM_NN_D(num1, num2) == 0){
@@ -172,7 +198,9 @@ Number Natural::SUB_NN_N(const Number &num1, const Number &num2)
     return biggest;
 }
 
-//13 функция
+// #13 N-13
+// НОД натуральных чисел
+// Кушаев Дмитрий 5387
 Number Natural::GCF_NN_N(const Number &num1, const Number &num2){
 
     bool is_num1_zero = NZER_N_B(num1);
@@ -211,7 +239,9 @@ Number Natural::GCF_NN_N(const Number &num1, const Number &num2){
     return prev_remain;
 }
 
-// N-7: MUL_Nk_N — умножение натурального числа на 10^k
+// #7 N-7
+// Умножение натурального числа на 10^k
+// Степанов Леонид 5387
 Number Natural::MUL_Nk_N(const Number &num, int k) {
     if (k <= 0) return num;
     if (num.digits.size() == 1 && num.digits[0] == 0) return num;
@@ -224,6 +254,9 @@ Number Natural::MUL_Nk_N(const Number &num, int k) {
     return result;
 }
 
+// #14 N-14
+// НОК натуральных чисел
+// Грачева Елизавета 5387
 Number Natural::LCM_NN_N(const Number &num1, const Number &num2)
 {
     return Number();
