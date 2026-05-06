@@ -41,3 +41,4 @@
 *.dwo
 
 dmti_project/build/
+dmti_project/tests/build/
