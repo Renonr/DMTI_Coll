@@ -14,7 +14,15 @@ int Integer::SGN_Z_D(const IntegerNumber &num)
 
 IntegerNumber Integer::MUL_ZM_Z(const IntegerNumber &num)
 {
-    return IntegerNumber();
+    IntegerNumber result = num;
+
+    if (result.n == 0 && result.digits[0] == 0){
+        result.is_neg = false;
+    } else{
+        result.is_neg = !result.is_neg;
+    }
+
+    return result;
 }
 
 IntegerNumber Integer::TRANS_N_Z(const Number &num)
