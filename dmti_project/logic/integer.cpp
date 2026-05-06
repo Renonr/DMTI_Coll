@@ -2,6 +2,9 @@
 
 Integer::Integer() {}
 
+// #15 Z-1
+// Абсолютная величина числа
+// Баданюк Валерий 5387
 Number Integer::ABS_Z_N(const IntegerNumber &num) {
     Number res;
     res.n = num.n;
@@ -9,37 +12,53 @@ Number Integer::ABS_Z_N(const IntegerNumber &num) {
     return res;
 }
 
+// #17 Z-3
+// Умножение целого на (-1)
+// Сериков Владислав 5387
 IntegerNumber Integer::MUL_ZM_Z(const IntegerNumber &num)
 {
     return IntegerNumber();
 }
 
+// #18 Z-4
+// Преобразование натурального в целое
+// Вековищев Кирилл 5387
 IntegerNumber Integer::TRANS_N_Z(const Number &num)
 {
     return IntegerNumber();
 }
 
+// #19 Z-5
+// Преобразование целого в натуральное
+// Ковалёв Иван 5387
 Number Integer::TRANS_Z_N(const IntegerNumber &num)
 {
     return Number();
 }
 
+// #20 Z-6
+// Сложение целых чисел
+// Клочкова Лидия 5387
 IntegerNumber Integer::ADD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
 {
     return IntegerNumber();
 }
 
+// #21 Z-7
+// Вычитание целых чисел
+// Палешева Ариадна 5387
 IntegerNumber Integer::SUB_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
 {
     return IntegerNumber();
 }
 
+// #22 Z-8
+// Умножение целых чисел
+// Кушаев Дмитрий 5387
 IntegerNumber Integer::MUL_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2){
 
     bool is_negative = false;
 
-    // принял, что POZ_Z_D возвращает 1, если положительное,
-    // 0, если равно нулю и -1, если отрицательное
     if(SGN_Z_D(num1) == -1 ^ SGN_Z_D(num2) == -1){
         is_negative = true;
     }
@@ -63,12 +82,17 @@ IntegerNumber Integer::MUL_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &
     return int_result;
 }
 
-// Z-2: SGN_Z_D — знак числа: 1 положительное, 0 ноль, -1 отрицательное
+// #16 Z-2
+// Знак целого числа
+// Степанов Леонид 5387
 int Integer::SGN_Z_D(const IntegerNumber &num) {
     if (num.n == 0 && num.digits.size() == 1 && num.digits[0] == 0) return 0;
     return num.is_neg ? -1 : 1;
 }
 
+// #24 Z-10
+// Остаток от деления целого на целое
+// Баданюк Валерий 5387
 IntegerNumber Integer::MOD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2) {
     IntegerNumber q = DIV_ZZ_Z(num1, num2);
     IntegerNumber r = SUB_ZZ_Z(num1, MUL_ZZ_Z(q, num2));
@@ -84,6 +108,9 @@ IntegerNumber Integer::MOD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &
     return r;
 }
 
+// #23 Z-9
+// Частное от деления целого на целое
+// Грачева Елизавета 5387
 IntegerNumber Integer::DIV_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
 {
     return IntegerNumber();

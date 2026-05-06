@@ -2,11 +2,17 @@
 
 Polinomial::Polinomial() {}
 
+// #33 P-1
+// Сложение многочленов
+// Баданюк Валерий 5387
 PolynomialNumber Polinomial::ADD_PP_P(const PolynomialNumber &p1, const PolynomialNumber &p2)
 {
     return PolynomialNumber();
 }
 
+// #34 P-2
+// Вычитание многочленов
+// Степанов Леонид 5387
 PolynomialNumber Polinomial::SUB_PP_P(const PolynomialNumber &p1, const PolynomialNumber &p2) {
     int max_deg = std::max(p1.degree, p2.degree);
 
@@ -32,32 +38,49 @@ PolynomialNumber Polinomial::SUB_PP_P(const PolynomialNumber &p1, const Polynomi
     return result;
 }
 
+// #35 P-3
+// Умножение многочлена на рациональное число
+// Сериков Владислав 5387
 PolynomialNumber Polinomial::MUL_PQ_P(const PolynomialNumber &p, const RationalNumber &q)
 {
     return PolynomialNumber();
 }
 
+// #36 P-4
+// Умножение многочлена на x^k
+// Вековищев Кирилл 5387
 PolynomialNumber Polinomial::MUL_Pxk_P(const PolynomialNumber &p, const Number &k)
 {
     return PolynomialNumber();
 }
 
+// #37 P-5
+// Старший коэффициент многочлена
+// Ковалев Иван 5387
 RationalNumber Polinomial::LED_P_Q(const PolynomialNumber &p)
 {
     return RationalNumber();
 }
 
+// #38 P-6
+// Степень многочлена
+// Клочкова Лидия 5387 
 Number Polinomial::DEG_P_N(const PolynomialNumber &p)
 {
     return Number();
 }
 
+// #39 P-7
+// Вынесение из многочлена НОК знаменателей коэффициентов и НОД числителей
+// Палешева Ариадна 5387
 RationalNumber Polinomial::FAC_P_Q(const PolynomialNumber &p)
 {
     return RationalNumber();
 }
 
-//функция не работает
+// #40 P-8
+// Умножение многочленов
+// Кушаев Дмитрий 5387
 PolynomialNumber Polinomial::MUL_PP_P(const PolynomialNumber &p1, const PolynomialNumber &p2){
 
     PolynomialNumber result;
@@ -82,16 +105,25 @@ PolynomialNumber Polinomial::MUL_PP_P(const PolynomialNumber &p1, const Polynomi
     return result;
 }
 
+// #41 P-9
+// Частное от деления многочлена на многочлен при делении с остатком
+// Грачева Елизавета 5387
 PolynomialNumber Polinomial::DIV_PP_P(const PolynomialNumber &p1, const PolynomialNumber &p2)
 {
     return PolynomialNumber();
 }
 
+// #42 P-10
+// Остаток от деления многочлена на многочлен при делении с остатком
+// Баданюк Валерий 5387
 PolynomialNumber Polinomial::MOD_PP_P(const PolynomialNumber &p1, const PolynomialNumber &p2)
 {
     return PolynomialNumber();
 }
 
+// #43 P-11
+// НОД многочленов
+// Степанов Леонид 5387
 PolynomialNumber Polinomial::GCF_PP_P(const PolynomialNumber &p1, const PolynomialNumber &p2) {
     PolynomialNumber a = p1;
     PolynomialNumber b = p2;
@@ -113,11 +145,17 @@ PolynomialNumber Polinomial::GCF_PP_P(const PolynomialNumber &p1, const Polynomi
     return a;
 }
 
+// #44 P-12
+// Производная многочлена
+// Сериков Владислав 5387
 PolynomialNumber Polinomial::DER_P_P(const PolynomialNumber &p)
 {
     return PolynomialNumber();
 }
 
+// #45 P-13
+// Преобразование многочлена (кратные корни в простые)
+// Вековищев Кирилл 5387
 PolynomialNumber Polinomial::NMR_P_P(const PolynomialNumber &p)
 {
     return PolynomialNumber();
