@@ -33,7 +33,11 @@ IntegerNumber Integer::MUL_ZM_Z(const IntegerNumber &num)
 // Вековищев Кирилл 5387
 IntegerNumber Integer::TRANS_N_Z(const Number &num)
 {
-    return IntegerNumber();
+    IntegerNumber result;
+    result.is_neg = false;
+    result.n = num.n;
+    result.digits = num.digits;
+    return result;
 }
 
 // #19 Z-5
