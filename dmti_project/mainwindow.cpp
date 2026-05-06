@@ -168,9 +168,9 @@ void MainWindow::createFields(const QStringList &labels, const QString &type)
     else if (type == "Integer")
         rx.setPattern("^-?(0|[1-9][0-9]*)$");
     else if (type == "Rational")
-        rx.setPattern("^-?(0|[1-9][0-9]*)(/(0|[1-9][0-9]*))?$");
+        rx.setPattern("^-?(0|[1-9][0-9]*)/[1-9][0-9]*$");
     else if (type == "Polynomial")
-        rx.setPattern(R"(^(-?\d+/\d+|-?\d+)(\s+(-?\d+/\d+|-?\d+))*$)");
+        rx.setPattern(R"(^(-?(0|[1-9][0-9]*)/[1-9][0-9]*|-?(0|[1-9][0-9]*))(\s+(-?(0|[1-9][0-9]*)/[1-9][0-9]*|-?(0|[1-9][0-9]*)))*$)");
 
     auto *validator = new QRegularExpressionValidator(rx, this);
 
