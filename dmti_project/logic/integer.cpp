@@ -17,7 +17,15 @@ Number Integer::ABS_Z_N(const IntegerNumber &num) {
 // Сериков Владислав 5387
 IntegerNumber Integer::MUL_ZM_Z(const IntegerNumber &num)
 {
-    return IntegerNumber();
+    IntegerNumber result = num;
+
+    if (result.n == 0 && result.digits[0] == 0){
+        result.is_neg = false;
+    } else{
+        result.is_neg = !result.is_neg;
+    }
+
+    return result;
 }
 
 // #18 Z-4
