@@ -63,6 +63,43 @@ void run_tests() {
     std::cout << "\nALL TESTS PASSED!" << std::endl;
 }
 
+void run_SUB_ND_N(){
+    {
+        Number n1; n1.digits = {4, 8}; n1.n = 1;
+        Number n2; n2.digits = {1, 2}; n2.n = 1;
+        int digit = 2;
+        Number res = Natural::SUB_NDN_N(n1, n2, digit);
+        assert(areEqual(res, {2, 4}));
+        std::cout << "Test SUB_ND_N Passed: 48 - 12*2 = 24" << std::endl;
+    }
+
+    {
+        Number n1; n1.digits = {1, 0, 0}; n1.n = 2;
+        Number n2; n2.digits = {2, 5}; n2.n = 1;
+        int digit = 4;
+        Number res = Natural::SUB_NDN_N(n1, n2, digit);
+        assert(areEqual(res, {0}));
+        std::cout << "Test SUB_ND_N Passed: 100 - 25*4 = 0" << std::endl;
+    }
+
+    {
+        Number n1; n1.digits = {1, 0, 0, 0}; n1.n = 3;
+        Number n2; n2.digits = {1, 5, 0}; n2.n = 2;
+        int digit = 8;
+        bool exception = false;
+    try {
+        Natural::SUB_NDN_N(n1, n2, digit);
+    } catch (const std::invalid_argument& e) {
+        exception = true;
+        
+        assert(std::string(e.what()) == "num1 < num2 * digit");
+        std::cout << "Test Passed: num1 < num2 * digit" << std::endl;
+    }
+
+    assert(exception);
+    } 
+}
+
 // INTEGER
 // ниже юнит-тесты для целых чисел (INTEGER)
 

@@ -15,7 +15,10 @@ bool Rational::INT_Q_B(const RationalNumber &frac)
 // Вековищев Кирилл 5387
 RationalNumber Rational::TRANS_Z_Q(const IntegerNumber &num)
 {
-    return RationalNumber();
+    RationalNumber result;
+    result.numerator = num;
+    result.denominator = Number("1");
+    return result;
 }
 
 // #28 Q-4

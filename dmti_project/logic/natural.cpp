@@ -126,9 +126,8 @@ Number Natural::SUB_NDN_N(const Number &num1, const Number &num2, int digit)
     }else if(COM_NN_D(num1, mul_num) == 0){
         return Number("0");
     }else{
-        //xz что возвращать, если num1 < num2 * digit, по условию задачи ничего не сказано 
+        throw std::invalid_argument("num1 < num2 * digit");  
     }
-
 }
 
 // #10 N-10
