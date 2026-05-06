@@ -2,6 +2,7 @@
 
 Natural::Natural() {}
 
+//1 функция
 int Natural::COM_NN_D(const Number &num1, const Number &num2)
 {
     if (num1.n > num2.n){
@@ -9,19 +10,48 @@ int Natural::COM_NN_D(const Number &num1, const Number &num2)
     } else if (num2.n > num1.n){
         return 1;
     } else{
-        for(int i = 0; i < num1.n; i++){
-            if (num1.digits[i] > num2.digits[i]){
+        for(int i = 0; i <= num1.n; i++){
+            if (num1.digits.at(i) > num2.digits.at(i)){
                 return 2;
-            } else if (num1.digits[i] < num2.digits[i])
+            } else if (num1.digits.at(i) < num2.digits.at(i))
                 return 1;
         }
         return 0;
     }
 }
 
+//2 функция
+bool Natural::NZER_N_B(const Number &num)
+{
+    if (num.n == 0 && num.digits[0] == 0){
+        return false;
+    }
+    return true;
+}
+
+//3 функция
+Number Natural::ADD_1N_N(const Number &num)
+{
+    Number new_num = num;
+
+    for(int i = new_num.n; i >= 0; i--){
+        if (new_num.digits[i] == 9){
+            new_num.digits.at(i) = 0;
+        } else{
+            new_num.digits.at(i) += 1;
+            return new_num;
+        }
+    }
+
+    new_num.n++;
+    new_num.digits.insert(new_num.digits.begin(), 1);
+    return new_num;
+}
+
+//6 функция
 Number Natural::MUL_ND_N(const Number &num, int digit) 
 {
-    if (digit == 0) return Number("0");
+    if (digit == 0) return Number();
     if (digit == 1) return Number(num.toString());
 
     std::vector<int> new_num;
@@ -47,18 +77,54 @@ Number Natural::MUL_ND_N(const Number &num, int digit)
     return Number(result);
 }
 
+Number Natural::MUL_NN_N(const Number &num1, const Number &num2)
+{
+    return Number();
+}
+
+Number Natural::SUB_NDN_N(const Number &num1, const Number &num2, int digit)
+{
+    if (digit == 0){
+        return Number(num1.toString());
+    } 
+    Number mul_num = MUL_ND_N(num2, digit);
+    if (COM_NN_D(num1, mul_num) == 2){
+        return SUB_NN_N(num1, mul_num);
+    }else if(COM_NN_D(num1, mul_num) == 0){
+        return Number("0");
+    }else{
+        //xz что возвращать, если num1 < num2 * digit, по условию задачи ничего не сказано 
+    }
+
+}
+
+Number Natural::DIV_NN_Dk(const Number &num1, const Number &num2, int k)
+{
+    return Number();
+}
+
+Number Natural::DIV_NN_N(const Number &num1, const Number &num2)
+{
+    return Number();
+}
+
+Number Natural::MOD_NN_N(const Number &num1, const Number &num2)
+{
+    return Number();
+}
+
+//4 функция
+//Возможно хуйня (надо протестировать) (Димка вещаета: while на do while) (to_next???)
 Number Natural::ADD_NN_N(const Number &num1, const Number &num2){
     const Number *bigger_ptr = (COM_NN_D(num1, num2) == 1) ? &num2 : &num1;
     const Number *smaller_ptr = (bigger_ptr == &num1) ? &num2 : &num1;
 
     std::vector<int> result;
 
-    int to_next;
+    int to_next = 0;
 
     int i = bigger_ptr->n - 1;
     int j = smaller_ptr->n - 1;
-
-    int sum;
 
     int sum = 0;
 
@@ -83,6 +149,30 @@ Number Natural::ADD_NN_N(const Number &num1, const Number &num2){
     return resNum;
 }
 
+//5 функция
+Number Natural::SUB_NN_N(const Number &num1, const Number &num2)
+{
+    if (COM_NN_D(num1, num2) == 0){
+        return Number();
+    }
+
+    Number biggest = (COM_NN_D(num1, num2) == 2) ? num1 : num2;
+    Number smaller = (COM_NN_D(num1, num2) == 1) ? num1 : num2;
+
+    /*int high = smaller.n;
+    for (int i = high; i >= 0; i--){
+        if (biggest.digits[i] >= smaller.digits[i]){
+            biggest.digits[i] -= smaller.digits[i];
+        } else {
+            biggest.digits[i] = biggest.digits[i] + 10 - smaller.digits[i];
+            biggest.digits[i + 1] -= 1;
+        }
+    }*/
+
+    return biggest;
+}
+
+//13 функция
 Number Natural::GCF_NN_N(const Number &num1, const Number &num2){
 
     bool is_num1_zero = NZER_N_B(num1);
@@ -116,7 +206,6 @@ Number Natural::GCF_NN_N(const Number &num1, const Number &num2){
         curr_remain = MOD_NN_N(bigger_num, curr_remain);
 
         bigger_num = prev_remain;
-
     }
 
     return prev_remain;
@@ -133,4 +222,9 @@ Number Natural::MUL_Nk_N(const Number &num, int k) {
     }
     result.n += k;
     return result;
+}
+
+Number Natural::LCM_NN_N(const Number &num1, const Number &num2)
+{
+    return Number();
 }

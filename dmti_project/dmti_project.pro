@@ -12,7 +12,6 @@ SOURCES += \
     logic/integer.cpp \
     logic/natural.cpp \
     logic/polinomial.cpp \
-    logic/polynomial.cpp \
     logic/rational.cpp \
     main.cpp \
     mainwindow.cpp
@@ -22,7 +21,6 @@ HEADERS += \
     logic/natural.h \
     logic/number_structures.h \
     logic/polinomial.h \
-    logic/polynomial.h \
     logic/rational.h \
     mainwindow.h
 

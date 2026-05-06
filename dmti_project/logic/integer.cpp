@@ -2,13 +2,45 @@
 
 Integer::Integer() {}
 
+Number Integer::ABS_Z_N(const IntegerNumber &num) {
+    Number res;
+    res.n = num.n;
+    res.digits = num.digits;
+    return res;
+}
+
+IntegerNumber Integer::MUL_ZM_Z(const IntegerNumber &num)
+{
+    return IntegerNumber();
+}
+
+IntegerNumber Integer::TRANS_N_Z(const Number &num)
+{
+    return IntegerNumber();
+}
+
+Number Integer::TRANS_Z_N(const IntegerNumber &num)
+{
+    return Number();
+}
+
+IntegerNumber Integer::ADD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
+{
+    return IntegerNumber();
+}
+
+IntegerNumber Integer::SUB_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
+{
+    return IntegerNumber();
+}
+
 IntegerNumber Integer::MUL_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2){
 
     bool is_negative = false;
 
     // принял, что POZ_Z_D возвращает 1, если положительное,
     // 0, если равно нулю и -1, если отрицательное
-    if(SGN_Z_D(num1) == -1 ^ SGN_Z_D(num2) == -1){ 
+    if(SGN_Z_D(num1) == -1 ^ SGN_Z_D(num2) == -1){
         is_negative = true;
     }
 
@@ -35,4 +67,24 @@ IntegerNumber Integer::MUL_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &
 int Integer::SGN_Z_D(const IntegerNumber &num) {
     if (num.n == 0 && num.digits.size() == 1 && num.digits[0] == 0) return 0;
     return num.is_neg ? -1 : 1;
+}
+
+IntegerNumber Integer::MOD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2) {
+    IntegerNumber q = DIV_ZZ_Z(num1, num2);
+    IntegerNumber r = SUB_ZZ_Z(num1, MUL_ZZ_Z(q, num2));
+    // num1 = num2*q + r
+
+    if (r.is_neg) {
+        IntegerNumber one("1");
+        q = num2.is_neg ? ADD_ZZ_Z(q, one) : SUB_ZZ_Z(q, one);
+
+        r = SUB_ZZ_Z(num1, MUL_ZZ_Z(q, num2));
+    }
+
+    return r;
+}
+
+IntegerNumber Integer::DIV_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
+{
+    return IntegerNumber();
 }
