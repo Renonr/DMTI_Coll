@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <qstring.h>
+#include <QDebug>
 
 
 struct Number{
@@ -38,6 +39,20 @@ struct Number{
         res.reserve(n + 1);
         for(int i = 0; i <= n; i++) res += QString::number(digits[i]);
         return res;
+    }
+
+    friend bool operator==(const Number &num1, const Number &num2){
+        return num1.digits == num2.digits;
+    }
+
+    friend bool operator!=(const Number &num1, const Number &num2){
+        return !(num1 == num2);
+    }
+
+    friend QDebug operator<<(QDebug dbg, const Number &num){
+        QDebugStateSaver saver(dbg);
+        dbg.nospace() << "Number(" << num.toString() << ")";
+        return dbg;
     }
 };
 
@@ -75,6 +90,20 @@ struct IntegerNumber{
         }
         for(int i = 0; i <= n; i++) res += QString::number(digits[i]);
         return res;
+    }
+
+    friend bool operator==(const IntegerNumber &num1, const IntegerNumber &num2){
+        return num1.digits == num2.digits && num1.is_neg == num2.is_neg;
+    }
+
+    friend bool operator!=(const IntegerNumber &num1, const IntegerNumber &num2){
+        return !(num1 == num2);
+    }
+
+    friend QDebug operator<<(QDebug dbg, const IntegerNumber &num){
+        QDebugStateSaver saver(dbg);
+        dbg.nospace() << "IntegerNumber(" << num.toString() << ")";
+        return dbg;
     }
 };
 
