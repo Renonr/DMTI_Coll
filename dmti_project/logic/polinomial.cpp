@@ -17,7 +17,7 @@ PolynomialNumber Polinomial::MUL_PQ_P(const PolynomialNumber &p, const RationalN
     return PolynomialNumber();
 }
 
-PolynomialNumber Polinomial::MUL_Pxk_P(const PolynomialNumber &p, int k)
+PolynomialNumber Polinomial::MUL_Pxk_P(const PolynomialNumber &p, const Number &k)
 {
     return PolynomialNumber();
 }
@@ -37,6 +37,10 @@ RationalNumber Polinomial::FAC_P_Q(const PolynomialNumber &p)
     return RationalNumber();
 }
 
+
+PolynomialNumber Polinomial::MUL_PP_P(const PolynomialNumber &p1, const PolynomialNumber &p2){
+    return PolynomialNumber();
+}
 //тут пока ошибка в 46 и 53 строк
 /*
 PolynomialNumber Polinomial::MUL_PP_P(const PolynomialNumber &p1, const PolynomialNumber &p2){
