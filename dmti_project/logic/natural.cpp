@@ -112,7 +112,7 @@ Number Natural::SUB_NDN_N(const Number &num1, const Number &num2, int digit)
 
 }
 
-// #10
+// #10 N-10
 // Вычисление первой цифры деления
 // Ковалёв Иван 5387
 Number Natural::DIV_NN_Dk(const Number &num1, const Number &num2, int k)
