@@ -7,6 +7,39 @@ Number Integer::ABS_Z_N(const IntegerNumber &num) {
     res.n = num.n;
     res.digits = num.digits;
     return res;
+Number Integer::ABS_Z_N(const IntegerNumber &num)
+{
+    return Number();
+}
+
+int Integer::SGN_Z_D(const IntegerNumber &num)
+{
+    return num.n;
+}
+
+IntegerNumber Integer::MUL_ZM_Z(const IntegerNumber &num)
+{
+    return IntegerNumber();
+}
+
+IntegerNumber Integer::TRANS_N_Z(const Number &num)
+{
+    return IntegerNumber();
+}
+
+Number Integer::TRANS_Z_N(const IntegerNumber &num)
+{
+    return Number();
+}
+
+IntegerNumber Integer::ADD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
+{
+    return IntegerNumber();
+}
+
+IntegerNumber Integer::SUB_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
+{
+    return IntegerNumber();
 }
 
 IntegerNumber Integer::MUL_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2){
@@ -51,4 +84,13 @@ IntegerNumber Integer::MOD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &
     }
 
     return r;
+}
+IntegerNumber Integer::DIV_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
+{
+    return IntegerNumber();
+}
+
+IntegerNumber Integer::MOD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
+{
+    return IntegerNumber();
 }

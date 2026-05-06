@@ -4,6 +4,7 @@
 #include <vector>
 #include <qstring.h>
 
+
 struct Number{
     int n;
     std::vector<int> digits;
@@ -60,7 +61,6 @@ struct IntegerNumber{
         }
     }
 
-    // конструктор по умолчанию; создаёт ноль
     IntegerNumber(){
         is_neg = false;
         n = 0;
@@ -85,27 +85,84 @@ struct RationalNumber {
     RationalNumber(QString nStr, QString dStr)
         : numerator(nStr), denominator(dStr) {}
 
-    RationalNumber(){}
+    RationalNumber(){
+    }
 
     QString toString() const {
         return numerator.toString() + "/" + denominator.toString();
     }
 };
 
-struct Polynomial {
-    int m;
+struct PolynomialNumber {
+    int degree;
     std::vector<RationalNumber> coefficients;
 
-    Polynomial(int degree, std::vector<RationalNumber> coeffs)
-        : m(degree), coefficients(coeffs) {}
+    PolynomialNumber(int degree, std::vector<RationalNumber> coeffs)
+        : degree(degree), coefficients(coeffs) {}
+
+    PolynomialNumber(int degree, RationalNumber coeff){
+
+        this->degree = degree;
+
+        for(int i = 0; i <= degree; i++){
+            coefficients.push_back(RationalNumber());
+        }
+
+        coefficients.push_back(coeff);
+    }
+
+    PolynomialNumber(){
+        degree = 0;
+        coefficients.push_back(RationalNumber());
+    }
+
+    PolynomialNumber get_member(int degree) const{
+
+        if(degree > this->degree || degree < 0){
+            return PolynomialNumber();
+        }
+
+        RationalNumber coeff = coefficients[this->degree];
+
+        return PolynomialNumber(degree, coeff);
+    }
+
+    RationalNumber get_coeff(int degree) const{
+
+        if(this->degree < degree){
+            return RationalNumber();
+        }
+
+        return coefficients[degree];
+    }
+
+    /*PolynomialNumber operator=(const PolynomialNumber &other){
+
+        if(this == &other) return *this;
+
+        degree = other.degree;
+
+        for(int i = 0; i <= degree; i++){
+            coefficients.push_back(other.coefficients[i]);
+        }
+
+        return *this;
+    }*/
+
+    /*PolynomialNumber operator+(const PolynomialNumber &other){
+
+        Polynomial calc;
+
+        return calc.ADD_PP_P(*this, other);
+    }*/
 
     QString toString() const {
         if (coefficients.empty()) return "0";
 
         QString res;
-        for (int i = 0; i <= m; ++i) {
+        for (int i = 0; i <= degree; ++i) {
             QString coeffStr = coefficients[i].toString();
-            int power = m - i;
+            int power = degree - i;
 
             res += "(" + coeffStr + ")";
 
