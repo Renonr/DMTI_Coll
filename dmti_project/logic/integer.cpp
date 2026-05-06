@@ -19,7 +19,11 @@ IntegerNumber Integer::MUL_ZM_Z(const IntegerNumber &num)
 
 IntegerNumber Integer::TRANS_N_Z(const Number &num)
 {
-    return IntegerNumber();
+    IntegerNumber result;
+    result.is_neg = false;
+    result.n = num.n;
+    result.digits = num.digits;
+    return result;
 }
 
 Number Integer::TRANS_Z_N(const IntegerNumber &num)
