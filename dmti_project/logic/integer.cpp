@@ -61,6 +61,63 @@ IntegerNumber Integer::ADD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &
 // Палешева Ариадна 5387
 IntegerNumber Integer::SUB_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
 {
+     // Преобразование IntegerNumber к Integer (предполагается возможность приведения)
+    const Integer& a = static_cast<const Integer&>(num1);
+    const Integer& b = static_cast<const Integer&>(num2);
+    
+    // Получение абсолютных значений
+    Natural abs1 = a.ABS_Z_N();
+    Natural abs2 = b.ABS_Z_N();
+    
+    // Оба числа равны нулю
+    if ((abs1 == Natural(0)) && (abs2 == Natural(0))) {
+        return IntegerNumber();
+    }
+    
+    // Первое число равно нулю
+    if (abs1 == Natural(0)) {
+        return IntegerNumber(b.MUL_ZM_Z());
+    }
+    
+    // Второе число равно нулю
+    if (abs2 == Natural(0)) {
+        return IntegerNumber(a);
+    }
+    
+    // Оба числа положительные
+    if (a.POZ_Z_D() == 1 && b.POZ_Z_D() == 1) {
+        if (abs1 > abs2 || abs1 == abs2) {
+            Natural resultAbs = abs1 - abs2;
+            return IntegerNumber(resultAbs);
+        } else {
+            Natural resultAbs = abs2 - abs1;
+            return IntegerNumber(resultAbs, true); // true обозначает отрицательное число
+        }
+    }
+    
+    // Оба числа отрицательные
+    if (a.POZ_Z_D() == -1 && b.POZ_Z_D() == -1) {
+        if ((abs1 > abs2) || (abs1 == abs2)) {
+            Natural resultAbs = abs1 - abs2;
+            return IntegerNumber(resultAbs, true);
+        } else {
+            Natural resultAbs = abs2 - abs1;
+            return IntegerNumber(resultAbs);
+        }
+    }
+    
+    // Первое положительное, второе отрицательное
+    if (a.POZ_Z_D() == 1 && b.POZ_Z_D() == -1) {
+        Natural resultAbs = abs1 + abs2;
+        return IntegerNumber(resultAbs);
+    }
+    
+    // Первое отрицательное, второе положительное
+    if (a.POZ_Z_D() == -1 && b.POZ_Z_D() == 1) {
+        Natural resultAbs = abs1 + abs2;
+        return IntegerNumber(resultAbs, true);
+    }
+    
     return IntegerNumber();
 }
 
