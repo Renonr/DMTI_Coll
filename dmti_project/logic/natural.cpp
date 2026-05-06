@@ -51,7 +51,7 @@ Number Natural::ADD_1N_N(const Number &num)
 //6 функция
 Number Natural::MUL_ND_N(const Number &num, int digit) 
 {
-    if (digit == 0) return Number("0");
+    if (digit == 0) return Number();
     if (digit == 1) return Number(num.toString());
 
     std::vector<int> new_num;
