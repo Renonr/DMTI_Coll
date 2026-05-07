@@ -151,30 +151,7 @@ Number Natural::DIV_NN_N(const Number &num1, const Number &num2)
 // Палешева Ариадна
 Number Natural::MOD_NN_N(const Number &num1, const Number &num2)
 {
-    // Преобразуем Number в Natural (предполагается, что Number может быть приведён к Natural)
-    const Natural& dividend = static_cast<const Natural&>(num1);
-    const Natural& divisor = static_cast<const Natural&>(num2);
-    
-    // Проверка деления на ноль
-    if (!divisor.NZER_N_B()) {
-        throw std::invalid_argument("Деление на ноль");
-    }
-    
-    // Сравнение чисел
-    if (dividend.COM_NN_D(divisor) == -1) {
-        return Number(dividend);  // возвращаем делимое как остаток
-    }
-    
-    if (dividend.COM_NN_D(divisor) == 0) {
-        return Number("0");  // числа равны, остаток 0
-    }
-    
-    // Вычисление остатка: dividend - (dividend / divisor) * divisor
-    Natural quotient = dividend.DIV_NN_N(divisor);
-    Natural product = quotient.MUL_NN_N(divisor);
-    Natural remainder = dividend.SUB_NN_N(product);
-
-    return Number(remainder);
+    return Number();
 }
 
 // #4 N-4
