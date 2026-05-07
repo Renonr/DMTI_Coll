@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 16.0.1, 2026-05-06T22:05:36. -->
+<!-- Written by QtCreator 16.0.1, 2026-05-07T03:04:56. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -71,7 +71,25 @@
     <value type="bool" key="AutoTest.Framework.QtTest">true</value>
    </valuemap>
    <value type="bool" key="AutoTest.ApplyFilter">false</value>
-   <valuemap type="QVariantMap" key="AutoTest.CheckStates"/>
+   <valuemap type="QVariantMap" key="AutoTest.CheckStates">
+    <value type="Qt::CheckState" key="1@:Qt Test">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testABS_Z_N_neg">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testABS_Z_N_poz">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testABS_Z_N_zero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testCOM_NN_D_equal">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testCOM_NN_D_greater">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testCOM_NN_D_less">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testInteger">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testNatural">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.h:testABS_Z_N_neg">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.h:testABS_Z_N_poz">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.h:testABS_Z_N_zero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.h:testCOM_NN_D_equal">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.h:testCOM_NN_D_greater">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.h:testCOM_NN_D_less">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.h:testInteger">PartiallyChecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.h:testNatural">Unchecked</value>
+   </valuemap>
    <valuelist type="QVariantList" key="AutoTest.PathFilters"/>
    <value type="int" key="AutoTest.RunAfterBuild">1</value>
    <value type="bool" key="AutoTest.UseGlobal">false</value>

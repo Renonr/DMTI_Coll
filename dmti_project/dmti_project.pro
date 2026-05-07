@@ -13,7 +13,6 @@ SOURCES += \
     logic/natural.cpp \
     logic/polinomial.cpp \
     logic/rational.cpp \
-    logic/unit_tests.cpp \
     main.cpp \
     mainwindow.cpp
 

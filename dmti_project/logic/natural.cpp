@@ -123,10 +123,8 @@ Number Natural::SUB_NDN_N(const Number &num1, const Number &num2, int digit)
     Number mul_num = MUL_ND_N(num2, digit);
     if (COM_NN_D(num1, mul_num) == 2){
         return SUB_NN_N(num1, mul_num);
-    }else if(COM_NN_D(num1, mul_num) == 0){
-        return Number("0");
     }else{
-        throw std::invalid_argument("num1 < num2 * digit");  
+        return Number("0");
     }
 }
 
@@ -135,7 +133,28 @@ Number Natural::SUB_NDN_N(const Number &num1, const Number &num2, int digit)
 // Ковалёв Иван 5387
 Number Natural::DIV_NN_Dk(const Number &num1, const Number &num2, int k)
 {
-    return Number();
+    if (COM_NN_D(num1, num2) == 0){
+        return Number("1");
+    }
+
+    if (NZER_N_B(num1) == false){
+        return Number("0");
+    }
+
+    Number biggest = (COM_NN_D(num1, num2) == 2) ? num1 : num2;
+    Number smaller = (COM_NN_D(num1, num2) == 1) ? num1 : num2;
+
+    smaller = MUL_Nk_N(smaller, k);
+    int d = 1;
+    while (COM_NN_D(biggest, MUL_ND_N(smaller, d + 1)) != 1){
+        d++;
+    }
+
+    if (COM_NN_D(biggest, MUL_ND_N(smaller, d)) == 1){
+        return Number("0");
+    }
+
+    return Number(QString::number(d)[0]);
 }
 
 // #11 N-11
@@ -143,7 +162,29 @@ Number Natural::DIV_NN_Dk(const Number &num1, const Number &num2, int k)
 // Клочкова Лидия 5387
 Number Natural::DIV_NN_N(const Number &num1, const Number &num2)
 {
-    return Number();
+    if(COM_NN_D(num1, num2) == 1){
+        return Number("0");
+    }
+
+    if(!NZER_N_B(num2)){
+        throw std::invalid_argument("На ноль делить нельзя!");
+    }
+
+    int k = num1.n - num2.n;
+
+    Number multed;
+    Number d;
+    Number dividend = Number(num1);
+    Number result = Number("0");
+
+    while(k >= 0){
+        d = DIV_NN_Dk(dividend, num2, k);
+        multed = MUL_Nk_N(d, k);
+        result = ADD_NN_N(result, multed);
+        dividend = SUB_NDN_N(dividend, MUL_Nk_N(num2, k), d.digits[0]);
+        k--;
+    }
+    return result;
 }
 
 // #12 N-12
@@ -151,7 +192,29 @@ Number Natural::DIV_NN_N(const Number &num1, const Number &num2)
 // Палешева Ариадна
 Number Natural::MOD_NN_N(const Number &num1, const Number &num2)
 {
-    return Number();
+    if(COM_NN_D(num1, num2) == 1){
+        return num1;
+    }
+
+    if(!NZER_N_B(num2)){
+        throw std::invalid_argument("На ноль делить нельзя!");
+    }
+
+    int k = num1.n - num2.n;
+
+    Number multed;
+    Number d;
+    Number dividend = Number(num1);
+    Number result = Number("0");
+
+    while(k >= 0){
+        d = DIV_NN_Dk(dividend, num2, k);
+        multed = MUL_Nk_N(d, k);
+        result = ADD_NN_N(result, multed);
+        dividend = SUB_NDN_N(dividend, MUL_Nk_N(num2, k), d.digits[0]);
+        k--;
+    }
+    return dividend;
 }
 
 // #4 N-4
@@ -198,15 +261,27 @@ Number Natural::SUB_NN_N(const Number &num1, const Number &num2)
     Number biggest = (COM_NN_D(num1, num2) == 2) ? num1 : num2;
     Number smaller = (COM_NN_D(num1, num2) == 1) ? num1 : num2;
 
-    /*int high = smaller.n;
-    for (int i = high; i >= 0; i--){
-        if (biggest.digits[i] >= smaller.digits[i]){
-            biggest.digits[i] -= smaller.digits[i];
-        } else {
-            biggest.digits[i] = biggest.digits[i] + 10 - smaller.digits[i];
-            biggest.digits[i + 1] -= 1;
+    int current_biggest = biggest.n;
+    for (int i = smaller.n; i >= 0; i--){
+        if (biggest.digits[current_biggest] >= smaller.digits[i]){
+            biggest.digits[current_biggest] -= smaller.digits[i];
+        } else{
+            int step = 1;
+            while(biggest.digits[current_biggest - step] == 0){
+                biggest.digits[current_biggest - step] = 9;
+                step++;
+            }
+            biggest.digits[current_biggest - step] -= 1;
+            biggest.digits[current_biggest] += 10;
+            biggest.digits[current_biggest] -= smaller.digits[i];
         }
-    }*/
+        current_biggest--;
+    }
+
+    while (biggest.digits.size() > 1 && biggest.digits.front() == 0) {
+        biggest.digits.erase(biggest.digits.begin());
+        biggest.n--;
+    }
 
     return biggest;
 }
@@ -214,42 +289,27 @@ Number Natural::SUB_NN_N(const Number &num1, const Number &num2)
 // #13 N-13
 // НОД натуральных чисел
 // Кушаев Дмитрий 5387
-Number Natural::GCF_NN_N(const Number &num1, const Number &num2){
+Number Natural::GCF_NN_N(const Number &num1, const Number &num2)
+{
+    bool is_num1_zero = !NZER_N_B(num1);
+    bool is_num2_zero = !NZER_N_B(num2);
 
-    bool is_num1_zero = NZER_N_B(num1);
-    bool is_num2_zero = NZER_N_B(num2);
+    if (is_num1_zero && is_num2_zero) {
+        return Number("0");
+    }
+    if (is_num1_zero) return num2;
+    if (is_num2_zero) return num1;
 
-    Number GCF;
+    Number a = num1;
+    Number b = num2;
 
-    if(is_num1_zero && is_num2_zero){
-        GCF.digits.push_back(1);
-        GCF.n += 1;
-        return GCF;
-    } else if(is_num1_zero){
-        Number GCF(num2);
-        return GCF;
-    } else if(is_num2_zero){
-        Number GCF(num1);
-        return GCF;
+    while (NZER_N_B(b)) {
+        Number temp = b;
+        b = MOD_NN_N(a, b);
+        a = temp;
     }
 
-    const Number *bigger_ptr = (COM_NN_D(num1, num2) == 1) ? &num2 : &num1;
-    const Number *smaller_ptr = (bigger_ptr == &num1) ? &num2 : &num1;
-
-    Number curr_remain = MOD_NN_N(*bigger_ptr, *smaller_ptr);
-    Number prev_remain = curr_remain;
-    Number bigger_num = *smaller_ptr;
-
-    while(NZER_N_B(curr_remain)){
-
-        prev_remain = curr_remain;
-
-        curr_remain = MOD_NN_N(bigger_num, curr_remain);
-
-        bigger_num = prev_remain;
-    }
-
-    return prev_remain;
+    return a;
 }
 
 // #7 N-7
@@ -272,5 +332,5 @@ Number Natural::MUL_Nk_N(const Number &num, int k) {
 // Грачева Елизавета 5387
 Number Natural::LCM_NN_N(const Number &num1, const Number &num2)
 {
-    return Number();
+    return DIV_NN_N((MUL_NN_N(num1, num2)), GCF_NN_N(num1, num2));
 }
