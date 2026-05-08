@@ -150,6 +150,7 @@ IntegerNumber Integer::MOD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &
     IntegerNumber q = DIV_ZZ_Z(num1, num2);
     IntegerNumber r = SUB_ZZ_Z(num1, MUL_ZZ_Z(q, num2));
     // num1 = num2*q + r
+    // r = num1 - num2*q
 
     if (r.is_neg) {
         IntegerNumber one("1");

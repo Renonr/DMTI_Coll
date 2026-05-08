@@ -60,7 +60,7 @@ Number Natural::ADD_1N_N(const Number &num)
 Number Natural::MUL_ND_N(const Number &num, int digit) 
 {
     if (digit == 0) return Number();
-    if (digit == 1) return Number(num.toString());
+    if (digit == 1) return Number(num);
 
     std::vector<int> new_num;
     int in_mind = 0;
