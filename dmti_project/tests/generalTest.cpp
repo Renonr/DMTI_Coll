@@ -24,6 +24,72 @@ private slots:
         QCOMPARE(Integer::ABS_Z_N(a), Number("0"));
     }
 
+    // ===== ADD_ZZ_Z (Z-6) =====
+    void testADD_ZZ_Z_bothPositive(){
+        IntegerNumber a("3"), b("5");
+        QCOMPARE(Integer::ADD_ZZ_Z(a, b).toString(), QString("8"));
+    }
+    void testADD_ZZ_Z_bothNegative(){
+        IntegerNumber a("-3"), b("-5");
+        QCOMPARE(Integer::ADD_ZZ_Z(a, b).toString(), QString("-8"));
+    }
+    void testADD_ZZ_Z_opposites(){
+        IntegerNumber a("5"), b("-5");
+        QCOMPARE(Integer::ADD_ZZ_Z(a, b).toString(), QString("0"));
+    }
+    void testADD_ZZ_Z_negPlusBigPos(){
+        IntegerNumber a("-3"), b("5");
+        QCOMPARE(Integer::ADD_ZZ_Z(a, b).toString(), QString("2"));
+    }
+    void testADD_ZZ_Z_posPlusBigNeg(){
+        IntegerNumber a("3"), b("-5");
+        QCOMPARE(Integer::ADD_ZZ_Z(a, b).toString(), QString("-2"));
+    }
+
+    // ===== MUL_ZZ_Z (Z-8) =====
+    void testMUL_ZZ_Z_bothPositive(){
+        IntegerNumber a("3"), b("4");
+        QCOMPARE(Integer::MUL_ZZ_Z(a, b).toString(), QString("12"));
+    }
+    void testMUL_ZZ_Z_negTimesPos(){
+        IntegerNumber a("-3"), b("4");
+        QCOMPARE(Integer::MUL_ZZ_Z(a, b).toString(), QString("-12"));
+    }
+    void testMUL_ZZ_Z_bothNegative(){
+        IntegerNumber a("-3"), b("-4");
+        QCOMPARE(Integer::MUL_ZZ_Z(a, b).toString(), QString("12"));
+    }
+    void testMUL_ZZ_Z_byZero(){
+        IntegerNumber a("5"), b("0");
+        QCOMPARE(Integer::MUL_ZZ_Z(a, b).toString(), QString("0"));
+    }
+    void testMUL_ZZ_Z_byOne(){
+        IntegerNumber a("7"), b("1");
+        QCOMPARE(Integer::MUL_ZZ_Z(a, b).toString(), QString("7"));
+    }
+
+    // ===== SUB_ZZ_Z (Z-7) =====
+    void testSUB_ZZ_Z_positive(){
+        IntegerNumber a("5"), b("3");
+        QCOMPARE(Integer::SUB_ZZ_Z(a, b).toString(), QString("2"));
+    }
+    void testSUB_ZZ_Z_negativeResult(){
+        IntegerNumber a("3"), b("5");
+        QCOMPARE(Integer::SUB_ZZ_Z(a, b).toString(), QString("-2"));
+    }
+    void testSUB_ZZ_Z_zero(){
+        IntegerNumber a("0"), b("0");
+        QCOMPARE(Integer::SUB_ZZ_Z(a, b).toString(), QString("0"));
+    }
+    void testSUB_ZZ_Z_equal(){
+        IntegerNumber a("42"), b("42");
+        QCOMPARE(Integer::SUB_ZZ_Z(a, b).toString(), QString("0"));
+    }
+    void testSUB_ZZ_Z_bothNegative(){
+        IntegerNumber a("-3"), b("-5");
+        QCOMPARE(Integer::SUB_ZZ_Z(a, b).toString(), QString("2"));
+    }
+
     // ===== SGN_Z_D (Z-2) =====
     void testSGN_Z_D_zero(){
         IntegerNumber a("0");
@@ -52,6 +118,64 @@ class testNatural : public QObject
 {
     Q_OBJECT
 private slots:
+    // ===== NZER_N_B (N-1) =====
+    void testNZER_N_B_zero(){
+        Number a("0");
+        QCOMPARE(Natural::NZER_N_B(a), false);
+    }
+    void testNZER_N_B_one(){
+        Number a("1");
+        QCOMPARE(Natural::NZER_N_B(a), true);
+    }
+    void testNZER_N_B_large(){
+        Number a("999");
+        QCOMPARE(Natural::NZER_N_B(a), true);
+    }
+
+    // ===== ADD_NN_N (N-4) =====
+    void testADD_NN_N_simple(){
+        Number a("3"), b("5");
+        QCOMPARE(Natural::ADD_NN_N(a, b).toString(), QString("8"));
+    }
+    void testADD_NN_N_withCarry(){
+        Number a("99"), b("1");
+        QCOMPARE(Natural::ADD_NN_N(a, b).toString(), QString("100"));
+    }
+    void testADD_NN_N_zeros(){
+        Number a("0"), b("0");
+        QCOMPARE(Natural::ADD_NN_N(a, b).toString(), QString("0"));
+    }
+    void testADD_NN_N_large(){
+        Number a("123"), b("456");
+        QCOMPARE(Natural::ADD_NN_N(a, b).toString(), QString("579"));
+    }
+    void testADD_NN_N_overflow(){
+        Number a("999"), b("1");
+        QCOMPARE(Natural::ADD_NN_N(a, b).toString(), QString("1000"));
+    }
+
+    // ===== GCF_NN_N (N-13) =====
+    void testGCF_NN_N_basic(){
+        Number a("12"), b("8");
+        QCOMPARE(Natural::GCF_NN_N(a, b).toString(), QString("4"));
+    }
+    void testGCF_NN_N_coprime(){
+        Number a("7"), b("5");
+        QCOMPARE(Natural::GCF_NN_N(a, b).toString(), QString("1"));
+    }
+    void testGCF_NN_N_zeroFirst(){
+        Number a("0"), b("5");
+        QCOMPARE(Natural::GCF_NN_N(a, b).toString(), QString("5"));
+    }
+    void testGCF_NN_N_equal(){
+        Number a("9"), b("9");
+        QCOMPARE(Natural::GCF_NN_N(a, b).toString(), QString("9"));
+    }
+    void testGCF_NN_N_large(){
+        Number a("100"), b("75");
+        QCOMPARE(Natural::GCF_NN_N(a, b).toString(), QString("25"));
+    }
+
     // ===== COM_NN_D =====
     void testCOM_NN_D_equal(){
         Number a("123");
@@ -71,6 +195,72 @@ private slots:
         Number a("100");
         Number b("999");
         QCOMPARE(Natural::COM_NN_D(a, b), 1);
+    }
+
+    // ===== ADD_1N_N (N-3) =====
+    void testADD_1N_N_simple(){
+        Number a("123");
+        QCOMPARE(Natural::ADD_1N_N(a).toString(), QString("124"));
+    }
+    void testADD_1N_N_carry(){
+        Number a("9");
+        QCOMPARE(Natural::ADD_1N_N(a).toString(), QString("10"));
+    }
+    void testADD_1N_N_allNines(){
+        Number a("999");
+        QCOMPARE(Natural::ADD_1N_N(a).toString(), QString("1000"));
+    }
+    void testADD_1N_N_zero(){
+        Number a("0");
+        QCOMPARE(Natural::ADD_1N_N(a).toString(), QString("1"));
+    }
+    void testADD_1N_N_partialCarry(){
+        Number a("199");
+        QCOMPARE(Natural::ADD_1N_N(a).toString(), QString("200"));
+    }
+
+    // ===== DIV_NN_N (N-11) =====
+    void testDIV_NN_N_exact(){
+        Number a("9"), b("3");
+        QCOMPARE(Natural::DIV_NN_N(a, b).toString(), QString("3"));
+    }
+    void testDIV_NN_N_withRemainder(){
+        Number a("10"), b("3");
+        QCOMPARE(Natural::DIV_NN_N(a, b).toString(), QString("3"));
+    }
+    void testDIV_NN_N_dividendSmaller(){
+        Number a("1"), b("5");
+        QCOMPARE(Natural::DIV_NN_N(a, b).toString(), QString("0"));
+    }
+    void testDIV_NN_N_equal(){
+        Number a("7"), b("7");
+        QCOMPARE(Natural::DIV_NN_N(a, b).toString(), QString("1"));
+    }
+    void testDIV_NN_N_large(){
+        Number a("100"), b("10");
+        QCOMPARE(Natural::DIV_NN_N(a, b).toString(), QString("10"));
+    }
+
+    // ===== MOD_NN_N (N-12) =====
+    void testMOD_NN_N_noRemainder(){
+        Number a("9"), b("3");
+        QCOMPARE(Natural::MOD_NN_N(a, b).toString(), QString("0"));
+    }
+    void testMOD_NN_N_withRemainder(){
+        Number a("10"), b("3");
+        QCOMPARE(Natural::MOD_NN_N(a, b).toString(), QString("1"));
+    }
+    void testMOD_NN_N_dividendSmaller(){
+        Number a("5"), b("10");
+        QCOMPARE(Natural::MOD_NN_N(a, b).toString(), QString("5"));
+    }
+    void testMOD_NN_N_equal(){
+        Number a("7"), b("7");
+        QCOMPARE(Natural::MOD_NN_N(a, b).toString(), QString("0"));
+    }
+    void testMOD_NN_N_large(){
+        Number a("100"), b("7");
+        QCOMPARE(Natural::MOD_NN_N(a, b).toString(), QString("2"));
     }
 
     // ===== MUL_Nk_N (N-7) =====
@@ -101,6 +291,72 @@ class testRational : public QObject
 {
     Q_OBJECT
 private slots:
+    // ===== MUL_QQ_Q (Q-7) =====
+    void testMUL_QQ_Q_basic(){
+        // 1/2 * 2/3 = 1/3
+        RationalNumber f1("1", "2"), f2("2", "3");
+        QCOMPARE(Rational::MUL_QQ_Q(f1, f2).toString(), QString("1/3"));
+    }
+    void testMUL_QQ_Q_reciprocals(){
+        // 3/4 * 4/3 = 1/1
+        RationalNumber f1("3", "4"), f2("4", "3");
+        QCOMPARE(Rational::MUL_QQ_Q(f1, f2).toString(), QString("1/1"));
+    }
+    void testMUL_QQ_Q_negative(){
+        // -1/2 * 2/3 = -1/3
+        RationalNumber f1("-1", "2"), f2("2", "3");
+        QCOMPARE(Rational::MUL_QQ_Q(f1, f2).toString(), QString("-1/3"));
+    }
+    void testMUL_QQ_Q_byZero(){
+        // 0/1 * 5/6 = 0/1
+        RationalNumber f1("0", "1"), f2("5", "6");
+        QCOMPARE(Rational::MUL_QQ_Q(f1, f2).toString(), QString("0/1"));
+    }
+
+    // ===== ADD_QQ_Q (Q-5) =====
+    void testADD_QQ_Q_halfPlusThird(){
+        // 1/2 + 1/3 = 5/6
+        RationalNumber f1("1", "2"), f2("1", "3");
+        QCOMPARE(Rational::ADD_QQ_Q(f1, f2).toString(), QString("5/6"));
+    }
+    void testADD_QQ_Q_sameDenominator(){
+        // 1/4 + 1/4 = 1/2
+        RationalNumber f1("1", "4"), f2("1", "4");
+        QCOMPARE(Rational::ADD_QQ_Q(f1, f2).toString(), QString("1/2"));
+    }
+    void testADD_QQ_Q_addZero(){
+        // 0/1 + 3/5 = 3/5
+        RationalNumber f1("0", "1"), f2("3", "5");
+        QCOMPARE(Rational::ADD_QQ_Q(f1, f2).toString(), QString("3/5"));
+    }
+    void testADD_QQ_Q_negativeAndPositive(){
+        // -1/3 + 2/3 = 1/3
+        RationalNumber f1("-1", "3"), f2("2", "3");
+        QCOMPARE(Rational::ADD_QQ_Q(f1, f2).toString(), QString("1/3"));
+    }
+
+    // ===== SUB_QQ_Q (Q-6) =====
+    void testSUB_QQ_Q_halfMinusThird(){
+        // 1/2 - 1/3 = 1/6
+        RationalNumber f1("1", "2"), f2("1", "3");
+        QCOMPARE(Rational::SUB_QQ_Q(f1, f2).toString(), QString("1/6"));
+    }
+    void testSUB_QQ_Q_sameDenominator(){
+        // 3/4 - 1/4 = 1/2
+        RationalNumber f1("3", "4"), f2("1", "4");
+        QCOMPARE(Rational::SUB_QQ_Q(f1, f2).toString(), QString("1/2"));
+    }
+    void testSUB_QQ_Q_equal(){
+        // 5/6 - 5/6 = 0/1
+        RationalNumber f1("5", "6"), f2("5", "6");
+        QCOMPARE(Rational::SUB_QQ_Q(f1, f2).toString(), QString("0/1"));
+    }
+    void testSUB_QQ_Q_negativeResult(){
+        // 1/4 - 1/2 = -1/4
+        RationalNumber f1("1", "4"), f2("1", "2");
+        QCOMPARE(Rational::SUB_QQ_Q(f1, f2).toString(), QString("-1/4"));
+    }
+
     // ===== RED_Q_Q (Q-1) =====
     void testRED_Q_Q_alreadyReduced(){
         // 7/3 — несократимая дробь
