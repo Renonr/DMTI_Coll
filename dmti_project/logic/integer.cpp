@@ -45,7 +45,10 @@ IntegerNumber Integer::TRANS_N_Z(const Number &num)
 // Ковалёв Иван 5387
 Number Integer::TRANS_Z_N(const IntegerNumber &num)
 {
-    return Number();
+    Number result;
+    result.n = num.n;
+    result.digits = num.digits;
+    return result;
 }
 
 // #20 Z-6
@@ -53,7 +56,44 @@ Number Integer::TRANS_Z_N(const IntegerNumber &num)
 // Клочкова Лидия 5387
 IntegerNumber Integer::ADD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
 {
-    return IntegerNumber();
+    Number abs1 = ABS_Z_N(num1);
+    Number abs2 = ABS_Z_N(num2);
+    int sign1 = SGN_Z_D(num1);
+    int sign2 = SGN_Z_D(num2);
+
+    if (sign1 == sign2) {
+        Number sum = ADD_NN_N(abs1, abs2);
+        IntegerNumber result = TRANS_N_Z(sum);
+        if (sign1 == -1) {
+            result = MUL_ZM_Z(result);
+        }
+        return result;
+    }
+
+    int cmp = COM_NN_D(abs1, abs2);
+
+    if (cmp == 0) {
+        return IntegerNumber("0");
+    }
+
+    Number diff;
+    int result_sign;
+
+    diff = SUB_NN_N(abs1, abs2);
+
+    if (cmp == 2) {
+        result_sign = sign1;
+    } else {
+        result_sign = sign2;
+    }
+
+    IntegerNumber result = TRANS_N_Z(diff);
+
+    if (result_sign == -1) {
+        result = MUL_ZM_Z(result);
+    }
+
+    return result;
 }
 
 // #21 Z-7
@@ -61,7 +101,8 @@ IntegerNumber Integer::ADD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &
 // Палешева Ариадна 5387
 IntegerNumber Integer::SUB_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
 {
-    return IntegerNumber();
+    IntegerNumber neg_num2 = MUL_ZM_Z(num2);
+    return ADD_ZZ_Z(num1, neg_num2);
 }
 
 // #22 Z-8
@@ -125,6 +166,27 @@ IntegerNumber Integer::MOD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &
 // Грачева Елизавета 5387
 IntegerNumber Integer::DIV_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
 {
-    return IntegerNumber();
+    Number absInt1 = ABS_Z_N(num1);
+    Number absInt2 = ABS_Z_N(num2);
+    Number result = DIV_NN_N(absInt1, absInt2);
+
+    int sign1 = SGN_Z_D(num1);
+    int sign2 = SGN_Z_D(num2);
+
+    if(COM_NN_D(MUL_NN_N(absInt2, result), absInt1) == 0){
+        return sign1 == sign2 ? TRANS_N_Z(result) : MUL_ZM_Z(TRANS_N_Z(result));
+    }
+
+    if ((sign1 == -1 && sign2 == 1)){
+        result = ADD_1N_N(result);
+        return MUL_ZM_Z(TRANS_N_Z(result));
+    }else if(sign1 == sign2 && sign1 == -1){
+        result = ADD_1N_N(result);
+        return TRANS_N_Z(result);
+    }else if(sign1 == 1 && sign2 == -1){
+        return MUL_ZM_Z(TRANS_N_Z(result));
+    }else{
+        return TRANS_N_Z(result);
+    }
 }
 
