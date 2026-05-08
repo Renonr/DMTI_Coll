@@ -59,7 +59,7 @@ PolynomialNumber Polinomial::MUL_Pxk_P(const PolynomialNumber &p, const Number &
 // Ковалев Иван 5387
 RationalNumber Polinomial::LED_P_Q(const PolynomialNumber &p)
 {
-    return RationalNumber();
+    return p.get_coeff(0);
 }
 
 // #38 P-6
