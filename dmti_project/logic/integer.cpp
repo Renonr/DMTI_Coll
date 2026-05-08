@@ -53,7 +53,7 @@ Number Integer::TRANS_Z_N(const IntegerNumber &num)
 
 // #20 Z-6
 // Сложение целых чисел
-// Клочкова Лидия 5387
+// Клочкова Лидия 5387 (Ковалев Иван)
 IntegerNumber Integer::ADD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
 {
     Number abs1 = ABS_Z_N(num1);
@@ -98,7 +98,7 @@ IntegerNumber Integer::ADD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &
 
 // #21 Z-7
 // Вычитание целых чисел
-// Палешева Ариадна 5387
+// Палешева Ариадна 5387 (Ковалев Иван)
 IntegerNumber Integer::SUB_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
 {
     IntegerNumber neg_num2 = MUL_ZM_Z(num2);
@@ -163,7 +163,7 @@ IntegerNumber Integer::MOD_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &
 
 // #23 Z-9
 // Частное от деления целого на целое
-// Грачева Елизавета 5387
+// Грачева Елизавета 5387 (Ковалев Иван)
 IntegerNumber Integer::DIV_ZZ_Z(const IntegerNumber &num1, const IntegerNumber &num2)
 {
     Number absInt1 = ABS_Z_N(num1);

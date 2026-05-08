@@ -114,6 +114,11 @@ struct RationalNumber {
     RationalNumber(QString nStr, QString dStr)
         : numerator(nStr), denominator(dStr) {}
 
+    RationalNumber(IntegerNumber numerator, Number denominator){
+        this->numerator = numerator;
+        this->denominator = denominator;
+    }
+
     RationalNumber(){
     }
 
