@@ -159,7 +159,7 @@ Number Natural::DIV_NN_Dk(const Number &num1, const Number &num2, int k)
 
 // #11 N-11
 // Неполное частного от деления с остатком
-// Клочкова Лидия 5387
+// Клочкова Лидия 5387 (Ковалев Иван)
 Number Natural::DIV_NN_N(const Number &num1, const Number &num2)
 {
     if(COM_NN_D(num1, num2) == 1){
@@ -189,7 +189,7 @@ Number Natural::DIV_NN_N(const Number &num1, const Number &num2)
 
 // #12 N-12
 // Остаток от деления
-// Палешева Ариадна
+// Палешева Ариадна (Ковалев Иван)
 Number Natural::MOD_NN_N(const Number &num1, const Number &num2)
 {
     if(COM_NN_D(num1, num2) == 1){
@@ -251,7 +251,7 @@ Number Natural::ADD_NN_N(const Number &num1, const Number &num2) {
 
 // #5 N-5
 // Вычитание натуральных чисел
-// Грачева Елизавета 5387
+// Грачева Елизавета 5387 (Ковалев Иван)
 Number Natural::SUB_NN_N(const Number &num1, const Number &num2)
 {
     if (COM_NN_D(num1, num2) == 0){
@@ -288,7 +288,7 @@ Number Natural::SUB_NN_N(const Number &num1, const Number &num2)
 
 // #13 N-13
 // НОД натуральных чисел
-// Кушаев Дмитрий 5387
+// Кушаев Дмитрий 5387 (Ковалев Иван)
 Number Natural::GCF_NN_N(const Number &num1, const Number &num2)
 {
     bool is_num1_zero = !NZER_N_B(num1);
@@ -329,7 +329,7 @@ Number Natural::MUL_Nk_N(const Number &num, int k) {
 
 // #14 N-14
 // НОК натуральных чисел
-// Грачева Елизавета 5387
+// Грачева Елизавета 5387 (Ковалев Иван)
 Number Natural::LCM_NN_N(const Number &num1, const Number &num2)
 {
     return DIV_NN_N((MUL_NN_N(num1, num2)), GCF_NN_N(num1, num2));
