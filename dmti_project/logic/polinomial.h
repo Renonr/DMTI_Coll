@@ -15,7 +15,7 @@ public:
 
     static PolynomialNumber MUL_PQ_P(const PolynomialNumber &p, const RationalNumber &q);
 
-    static PolynomialNumber MUL_Pxk_P(const PolynomialNumber &p, const Number &k);
+    static PolynomialNumber MUL_Pxk_P(const PolynomialNumber &p, int k);
 
     static RationalNumber LED_P_Q(const PolynomialNumber &p);
 
