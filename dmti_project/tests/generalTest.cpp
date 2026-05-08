@@ -25,6 +25,15 @@ private slots:
         IntegerNumber a("0");
         QCOMPARE(Integer::ABS_Z_N(a), Number("0"));
     }
+
+    // ===== ТЕСТЫ ДЛЯ TRANS_N_Z (Преобразование натурального в целое) =====
+    void testTRANS_N_Z(){
+        Number a("180");
+        QCOMPARE(Integer::TRANS_N_Z(a), IntegerNumber("180"));
+
+        Number b("0");
+        QCOMPARE(Integer::TRANS_N_Z(b), IntegerNumber("0"));
+    }
 };
 
 
@@ -54,6 +63,29 @@ private slots:
         Number b("999");
         QCOMPARE(Natural::COM_NN_D(a, b), 1);
     }
+
+    // ===== ТЕСТЫ ДЛЯ SUB_NDN_N (Вычитание из натурального другого натурального, умноженного на цифру) =====
+    void testSUB_NDN_N_zero(){
+        Number a("100");
+        Number b("25");
+        QCOMPARE(Natural::SUB_NDN_N(a, b, 4), Number("0"));
+
+        Number c("1000");
+        Number d("150");
+        QCOMPARE(Natural::SUB_NDN_N(c, d, 8), Number("0"));
+    }
+
+    void testSUB_NDN_N_greater(){
+        Number a("500");
+        Number b("100");
+        QCOMPARE(Natural::SUB_NDN_N(a, b, 4), Number("100"));
+
+        Number e("500");
+        Number f("100");
+        QCOMPARE(Natural::SUB_NDN_N(e, f, 0), Number("500"));
+        
+    }
+    
 };
 
 int main(int argc, char *argv[]) {
