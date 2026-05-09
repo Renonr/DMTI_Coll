@@ -76,10 +76,7 @@ RationalNumber Rational::SUB_QQ_Q(const RationalNumber &frac1, const RationalNum
 // Кушаев Дмитрий 5387
 RationalNumber Rational::MUL_QQ_Q(const RationalNumber &frac1, const RationalNumber &frac2){
 
-    // по умолчанию я сокращаю дроби, чтобы вычисления были
-    // менее затратными по ресурсам
-    // но, возможно, это не подразумевается самой функцией
-    // а может и вовсе сокращение более затратно, чем умножение))
+    // При умножении дробей они сокращаются. Результат также сокращён
 
     RationalNumber red_frac1 = RED_Q_Q(frac1);
     RationalNumber red_frac2 = RED_Q_Q(frac2);

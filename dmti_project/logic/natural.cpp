@@ -221,7 +221,7 @@ Number Natural::MOD_NN_N(const Number &num1, const Number &num2)
 // Сложение натуральных чисел
 // Кушаев Дмитрий 5387
 Number Natural::ADD_NN_N(const Number &num1, const Number &num2) {
-    const Number *bigger_ptr = (num1.digits.size() >= num2.digits.size()) ? &num1 : &num2;
+    const Number *bigger_ptr = (COM_NN_D(num1, num2) == 2) ? &num1 : &num2;
     const Number *smaller_ptr = (bigger_ptr == &num1) ? &num2 : &num1;
 
     std::vector<int> result;
