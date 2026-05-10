@@ -75,9 +75,19 @@ PolynomialNumber Polinomial::MUL_PQ_P(const PolynomialNumber &p, const RationalN
 // #36 P-4
 // Умножение многочлена на x^k
 // Вековищев Кирилл 5387
-PolynomialNumber Polinomial::MUL_Pxk_P(const PolynomialNumber &p, const Number &k)
+PolynomialNumber Polinomial::MUL_Pxk_P(const PolynomialNumber &p, int k)
 {
-    return PolynomialNumber();
+    PolynomialNumber res = p;
+    if(k == 0){
+        return PolynomialNumber(res.degree, res.coefficients);
+    }else{
+
+        for(int i = 0; i < k; i++){
+            res.degree += 1;
+            res.coefficients.push_back(RationalNumber("0", "1"));
+        }
+    }
+    return res;
 }
 
 // #37 P-5
