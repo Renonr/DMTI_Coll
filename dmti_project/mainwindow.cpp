@@ -421,7 +421,7 @@ QString MainWindow::executeOperation(const QString &type, const QString &func, c
         }
         else if (func == "MUL_Pxk_P") {
             PolynomialNumber p = parsePolynomial(inputs[0]);
-            Number k(inputs[1]);
+            int k = inputs[1].toInt();
             return Polinomial().MUL_Pxk_P(p, k).toString();
         }
         else if (func == "NMR_P_P") {

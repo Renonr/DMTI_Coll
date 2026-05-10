@@ -133,7 +133,7 @@ PolynomialNumber Polinomial::MUL_PP_P(const PolynomialNumber &p1, const Polynomi
         curr_memb = (*smaller_deg).get_member(i);
 
         to_add = MUL_PQ_P(*bigger_deg, curr_memb.get_coeff(i));
-        to_add = MUL_Pxk_P(to_add, Number(QString::number(i)));
+        to_add = MUL_Pxk_P(to_add, i);
 
         result.degree = result.degree + to_add.degree;
     }
