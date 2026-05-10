@@ -67,7 +67,25 @@ RationalNumber Polinomial::LED_P_Q(const PolynomialNumber &p)
 // Клочкова Лидия 5387 
 Number Polinomial::DEG_P_N(const PolynomialNumber &p)
 {
-    return Number();
+    // Если у многочлена нет коэффициентов, считаем его нулевым
+    if (p.coefficients.empty()) {
+        return Number("0");
+    }
+
+    // Идём от старшего коэффициента к младшему
+    for (int i = (int)p.coefficients.size() - 1; i >= 0; i--) {
+        const RationalNumber &coef = p.coefficients[i];
+
+        // Проверяем, что числитель коэффициента не равен нулю
+        if (!(coef.numerator.n == 0 &&
+              coef.numerator.digits.size() == 1 &&
+              coef.numerator.digits[0] == 0)) {
+            return Number(QString::number(i));
+        }
+    }
+
+    // Если все коэффициенты нулевые, степень считаем равной 0
+    return Number("0");
 }
 
 // #39 P-7

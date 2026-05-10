@@ -464,6 +464,50 @@ private slots:
         QVERIFY(result.degree >= 0);
         QCOMPARE((int)result.coefficients.size(), result.degree + 1);
     }
+
+    // ===== DEG_P_N (P-6) =====
+
+    // Степень нулевого многочлена равна 0
+    void testDEG_P_N_zero(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("0","1")
+        };
+        PolynomialNumber p(0, c);
+        QCOMPARE(Polinomial::DEG_P_N(p).toString(), QString("0"));
+    }
+
+    // Степень ненулевой константы равна 0
+    void testDEG_P_N_constant(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("5","1")
+        };
+        PolynomialNumber p(0, c);
+        QCOMPARE(Polinomial::DEG_P_N(p).toString(), QString("0"));
+    }
+
+    // Степень многочлена 7 + 5x + 3x^2 равна 2
+    void testDEG_P_N_secondDegree(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("7","1"),
+            RationalNumber("5","1"),
+            RationalNumber("3","1")
+        };
+        PolynomialNumber p(2, c);
+        QCOMPARE(Polinomial::DEG_P_N(p).toString(), QString("2"));
+    }
+
+    // Если старший коэффициент равен 0, степень ищется по последнему ненулевому
+    void testDEG_P_N_withZeroSeniorCoeff(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("5","1"),
+            RationalNumber("0","1"),
+            RationalNumber("0","1"),
+            RationalNumber("4","1"),
+            RationalNumber("0","1")
+        };
+        PolynomialNumber p(4, c);
+        QCOMPARE(Polinomial::DEG_P_N(p).toString(), QString("3"));
+    }
 };
 
 
