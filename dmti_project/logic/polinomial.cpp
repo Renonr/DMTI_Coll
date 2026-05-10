@@ -5,9 +5,29 @@ Polinomial::Polinomial() {}
 // #33 P-1
 // Сложение многочленов
 // Баданюк Валерий 5387
-PolynomialNumber Polinomial::ADD_PP_P(const PolynomialNumber &p1, const PolynomialNumber &p2)
-{
-    return PolynomialNumber();
+PolynomialNumber Polinomial::ADD_PP_P(const PolynomialNumber &p1, const PolynomialNumber &p2) {
+    int max_deg = std::max(p1.degree, p2.degree);
+
+    PolynomialNumber result;
+    result.degree = max_deg;
+    result.coefficients.clear();
+    result.coefficients.resize(max_deg + 1);
+
+    for (int i = 0; i <= max_deg; i++) {
+        result.coefficients[i] = ADD_QQ_Q(p1.get_coeff(i), p2.get_coeff(i));
+    }
+
+    while (result.degree > 0) {
+        const RationalNumber &lead = result.coefficients[result.degree];
+        if (lead.numerator.n == 0 && lead.numerator.digits.size() == 1 && lead.numerator.digits[0] == 0) {
+            result.coefficients.pop_back();
+            result.degree--;
+        } else {
+            break;
+        }
+    }
+
+    return result;
 }
 
 // #34 P-2
@@ -43,15 +63,31 @@ PolynomialNumber Polinomial::SUB_PP_P(const PolynomialNumber &p1, const Polynomi
 // Сериков Владислав 5387
 PolynomialNumber Polinomial::MUL_PQ_P(const PolynomialNumber &p, const RationalNumber &q)
 {
-    return PolynomialNumber();
+    PolynomialNumber result = p;
+
+    for(int i = 0; i <= result.degree; i++){
+        result.coefficients[i] = MUL_QQ_Q(result.coefficients[i], q);
+    }
+
+    return result;
 }
 
 // #36 P-4
 // Умножение многочлена на x^k
 // Вековищев Кирилл 5387
-PolynomialNumber Polinomial::MUL_Pxk_P(const PolynomialNumber &p, const Number &k)
+PolynomialNumber Polinomial::MUL_Pxk_P(const PolynomialNumber &p, int k)
 {
-    return PolynomialNumber();
+    PolynomialNumber res = p;
+    if(k == 0){
+        return PolynomialNumber(res.degree, res.coefficients);
+    }else{
+
+        for(int i = 0; i < k; i++){
+            res.degree += 1;
+            res.coefficients.push_back(RationalNumber("0", "1"));
+        }
+    }
+    return res;
 }
 
 // #37 P-5
@@ -136,7 +172,12 @@ PolynomialNumber Polinomial::DIV_PP_P(const PolynomialNumber &p1, const Polynomi
 // Баданюк Валерий 5387
 PolynomialNumber Polinomial::MOD_PP_P(const PolynomialNumber &p1, const PolynomialNumber &p2)
 {
-    return PolynomialNumber();
+    PolynomialNumber q = DIV_PP_P(p1, p2);
+    PolynomialNumber r = SUB_PP_P(p1, MUL_PP_P(q, p2));
+    // p1 = p2*q + r
+    // r = p1 - p2*q
+
+    return r;
 }
 
 // #43 P-11
@@ -168,7 +209,21 @@ PolynomialNumber Polinomial::GCF_PP_P(const PolynomialNumber &p1, const Polynomi
 // Сериков Владислав 5387
 PolynomialNumber Polinomial::DER_P_P(const PolynomialNumber &p)
 {
-    return PolynomialNumber();
+    if(p.degree == 0){
+        std::vector<RationalNumber> zero_coeffs;
+        zero_coeffs.push_back(RationalNumber("0", "1"));
+        return PolynomialNumber(0, zero_coeffs);
+    }
+
+    std::vector<RationalNumber> result_coeffs;
+
+    for(int i = 0; i < p.degree; i++){
+        int power = p.degree - i;
+        RationalNumber power_num(QString::number(power), "1");
+        result_coeffs.push_back(MUL_QQ_Q(p.coefficients[i], power_num));
+    }
+
+    return PolynomialNumber(p.degree - 1, result_coeffs);
 }
 
 // #45 P-13
