@@ -966,6 +966,169 @@ private slots:
     }
 };
 
+// ===== FAC_P_Q (P-7) =====
+
+// Тест 1: Вынесение общего множителя из многочлена с рациональными коэффициентами
+void testFAC_P_Q_basic(){
+    // Многочлен: (2/3)x^2 + (4/5)x + (6/15)
+    std::vector<RationalNumber> coeffs = {
+        RationalNumber("6", "15"),  // x^0
+        RationalNumber("4", "5"),   // x^1
+        RationalNumber("2", "3")    // x^2
+    };
+    PolynomialNumber p(2, coeffs);
+    
+    RationalNumber result = Polinomial::FAC_P_Q(p);
+    
+    // Ожидаемый результат: 2/15
+    RationalNumber expected("2", "15");
+    
+    QCOMPARE(result.toString(), expected.toString());
+}
+
+// Тест 2: Многочлен с целыми коэффициентами
+void testFAC_P_Q_integerCoeffs(){
+    // Многочлен: 2x^2 + 4x + 6
+    std::vector<RationalNumber> coeffs = {
+        RationalNumber("6", "1"),   // x^0
+        RationalNumber("4", "1"),   // x^1
+        RationalNumber("2", "1")    // x^2
+    };
+    PolynomialNumber p(2, coeffs);
+    
+    RationalNumber result = Polinomial::FAC_P_Q(p);
+    
+    // Ожидаемый результат: 2/1 = 2
+    RationalNumber expected("2", "1");
+    
+    QCOMPARE(result.toString(), expected.toString());
+}
+
+// Тест 3: Многочлен с отрицательными коэффициентами
+void testFAC_P_Q_negativeCoeffs(){
+    // Многочлен: -3x^2 + -6x + -9
+    std::vector<RationalNumber> coeffs = {
+        RationalNumber("-9", "1"),   // x^0
+        RationalNumber("-6", "1"),   // x^1
+        RationalNumber("-3", "1")    // x^2
+    };
+    PolynomialNumber p(2, coeffs);
+    
+    RationalNumber result = Polinomial::FAC_P_Q(p);
+    
+    // Ожидаемый результат: 3/1 (НОД числителей 3, НОК знаменателей 1)
+    // Знак игнорируется при вынесении
+    RationalNumber expected("3", "1");
+    
+    QCOMPARE(result.toString(), expected.toString());
+}
+
+// Тест 4: Многочлен с одинаковыми знаменателями
+void testFAC_P_Q_sameDenominators(){
+    // Многочлен: (1/4)x^2 + (2/4)x + (3/4)
+    std::vector<RationalNumber> coeffs = {
+        RationalNumber("3", "4"),   // x^0
+        RationalNumber("2", "4"),   // x^1
+        RationalNumber("1", "4")    // x^2
+    };
+    PolynomialNumber p(2, coeffs);
+    
+    RationalNumber result = Polinomial::FAC_P_Q(p);
+    
+    // Ожидаемый результат: 1/4 (НОД числителей 1, НОК знаменателей 4)
+    RationalNumber expected("1", "4");
+    
+    QCOMPARE(result.toString(), expected.toString());
+}
+
+// Тест 5: Многочлен с одним ненулевым коэффициентом
+void testFAC_P_Q_singleTerm(){
+    // Многочлен: (5/6)x^3
+    std::vector<RationalNumber> coeffs = {
+        RationalNumber("0", "1"),   // x^0
+        RationalNumber("0", "1"),   // x^1
+        RationalNumber("0", "1"),   // x^2
+        RationalNumber("5", "6")    // x^3
+    };
+    PolynomialNumber p(3, coeffs);
+    
+    RationalNumber result = Polinomial::FAC_P_Q(p);
+    
+    // Ожидаемый результат: 5/6
+    RationalNumber expected("5", "6");
+    
+    QCOMPARE(result.toString(), expected.toString());
+}
+
+// Тест 6: Многочлен с единичными коэффициентами
+void testFAC_P_Q_identityResult(){
+    // Многочлен: x^2 + x + 1
+    std::vector<RationalNumber> coeffs = {
+        RationalNumber("1", "1"),   // x^0
+        RationalNumber("1", "1"),   // x^1
+        RationalNumber("1", "1")    // x^2
+    };
+    PolynomialNumber p(2, coeffs);
+    
+    RationalNumber result = Polinomial::FAC_P_Q(p);
+    
+    // Ожидаемый результат: 1/1
+    RationalNumber expected("1", "1");
+    
+    QCOMPARE(result.toString(), expected.toString());
+}
+
+// Тест 7: Проверка выбрасывания исключения для нулевого полинома
+void testFAC_P_Q_zeroPolynomial(){
+    PolynomialNumber zero;  // Нулевой полином
+    
+    bool exceptionThrown = false;
+    try {
+        Polinomial::FAC_P_Q(zero);
+    } catch (const std::logic_error& e) {
+        exceptionThrown = true;
+        QCOMPARE(QString(e.what()), QString("Это нулевой полином, выносить нечего"));
+    }
+    
+    QVERIFY(exceptionThrown);
+}
+
+// Тест 8: Многочлен с нулевыми промежуточными коэффициентами
+void testFAC_P_Q_withZeroCoeffs(){
+    // Многочлен: 2x^3 + 0x^2 + 4x + 6
+    std::vector<RationalNumber> coeffs = {
+        RationalNumber("6", "1"),   // x^0
+        RationalNumber("4", "1"),   // x^1
+        RationalNumber("0", "1"),   // x^2
+        RationalNumber("2", "1")    // x^3
+    };
+    PolynomialNumber p(3, coeffs);
+    
+    RationalNumber result = Polinomial::FAC_P_Q(p);
+    
+    // Ожидаемый результат: 2/1 (НОД числителей 2, НОК знаменателей 1)
+    RationalNumber expected("2", "1");
+    
+    QCOMPARE(result.toString(), expected.toString());
+}
+
+// Тест 9: Многочлен с дробями, требующими сокращения
+void testFAC_P_Q_reducibleFractions(){
+    // Многочлен: (2/4)x^2 + (4/8)x + (6/12)
+    std::vector<RationalNumber> coeffs = {
+        RationalNumber("6", "12"),  // x^0
+        RationalNumber("4", "8"),   // x^1
+        RationalNumber("2", "4")    // x^2
+    };
+    PolynomialNumber p(2, coeffs);
+    
+    RationalNumber result = Polinomial::FAC_P_Q(p);
+    
+    // Ожидаемый результат: 1/2 (НОД числителей 2, НОК знаменателей 4 = 1/2)
+    RationalNumber expected("1", "2");
+    
+    QCOMPARE(result.toString(), expected.toString());
+}
 
 int main(int argc, char *argv[]) {
     testInteger    t1;
