@@ -151,7 +151,7 @@ PolynomialNumber Polinomial::MUL_PP_P(const PolynomialNumber &p1, const Polynomi
         curr_memb = (*smaller_deg).get_member(i);
 
         to_add = MUL_PQ_P(*bigger_deg, curr_memb.get_coeff(i));
-        to_add = MUL_Pxk_P(to_add, Number(QString::number(i)));
+        to_add = MUL_Pxk_P(to_add, i);
 
         result.degree = result.degree + to_add.degree;
     }
@@ -231,5 +231,8 @@ PolynomialNumber Polinomial::DER_P_P(const PolynomialNumber &p)
 // Вековищев Кирилл 5387
 PolynomialNumber Polinomial::NMR_P_P(const PolynomialNumber &p)
 {
-    return PolynomialNumber();
+    PolynomialNumber derivative = Polinomial::DER_P_P(p);
+    PolynomialNumber gcf = Polinomial::GCF_PP_P(p, derivative);
+    PolynomialNumber result = Polinomial::DIV_PP_P(p, gcf);
+    return result;
 }

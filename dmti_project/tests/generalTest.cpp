@@ -31,6 +31,7 @@ private slots:
 
         Number b("0");
         QCOMPARE(Integer::TRANS_N_Z(b), IntegerNumber("0"));
+    }
     // ===== MUL_ZM_Z (Z-3) =====
     void testMUL_ZM_Z_positive(){
         IntegerNumber a("123");
@@ -459,17 +460,17 @@ private slots:
     }
 
     void testADD_PP_P_diff_degree() {
-        std::vector<RationalNumber> с1 = {
+        std::vector<RationalNumber> c1 = {
             RationalNumber("1","1"),
             RationalNumber("2","1"),
             RationalNumber("3","1"),
             RationalNumber("4","1")
         };
-        std::vector<RationalNumber> с2 = {
+        std::vector<RationalNumber> c2 = {
             RationalNumber("5","1"),
             RationalNumber("6","1")
         };
-        std::vector<RationalNumber> с3 = {
+        std::vector<RationalNumber> c3 = {
             RationalNumber("6","1"),
             RationalNumber("8","1"),
             RationalNumber("3","1"),
@@ -498,7 +499,7 @@ private slots:
         PolynomialNumber p1(2, c1);
         PolynomialNumber p2(2, c2);
 
-        QCOMPARE(Polinomial::ADD_PP_P(p1, p2).toString(), Polinomial().toString());
+        QCOMPARE(Polinomial::ADD_PP_P(p1, p2).toString(), PolynomialNumber().toString());
     }
 
     void testADD_PP_P_leading_zero() {
@@ -598,7 +599,7 @@ private slots:
             RationalNumber("1","1")
         });
 
-        std::vector<RationalNumber> one = {"1","1"};
+        std::vector<RationalNumber> one = {RationalNumber("1","1")};
         QCOMPARE(Polinomial::MOD_PP_P(p1, p2).toString(), PolynomialNumber(0, one).toString());
     }
 
@@ -651,9 +652,6 @@ private slots:
         QVERIFY(result.degree >= 0);
         QCOMPARE((int)result.coefficients.size(), result.degree + 1);
     }
-};
-
-
 
     // ===== MUL_NN_N (N-8) =====
     void testMUL_NN_N_simple(){
@@ -780,6 +778,23 @@ private slots:
         // 10/5 = 2/1
         RationalNumber f("10", "5");
         QCOMPARE(Rational::RED_Q_Q(f).toString(), QString("2/1"));
+    }
+    
+    // ===== TRANS_Z_Q (Q-3) =====
+    void testTRANS_Z_Q_positive(){
+        IntegerNumber a("5");
+        RationalNumber expected("5", "1");
+        QCOMPARE(Rational::TRANS_Z_Q(a).toString(), expected.toString());
+    }
+    void testTRANS_Z_Q_negative(){
+        IntegerNumber a("-7");
+        RationalNumber expected("-7", "1");
+        QCOMPARE(Rational::TRANS_Z_Q(a).toString(), expected.toString());
+    }
+    void testTRANS_Z_Q_zero(){
+        IntegerNumber a("0");
+        RationalNumber expected("0", "1");
+        QCOMPARE(Rational::TRANS_Z_Q(a).toString(), expected.toString());
     }
 };
 
@@ -964,6 +979,81 @@ private slots:
         PolynomialNumber p(4, c);
         QCOMPARE(Polinomial::DEG_P_N(p).toString(), QString("3"));
     }
+    // ===== MUL_Pxk_P (P-4) =====
+    void testMUL_Pxk_P_k0_noChange(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("1","1"),
+            RationalNumber("2","1")
+        };
+        PolynomialNumber p(1, c);
+        PolynomialNumber result = Polinomial::MUL_Pxk_P(p, 0);
+        QCOMPARE(result.degree, 1);
+        QCOMPARE(result.coefficients[0].toString(), QString("1/1"));
+        QCOMPARE(result.coefficients[1].toString(), QString("2/1"));
+    }
+    void testMUL_Pxk_P_k1(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("1","1"),
+            RationalNumber("2","1")
+        };
+        PolynomialNumber p(1, c);
+        PolynomialNumber result = Polinomial::MUL_Pxk_P(p, 1);
+        QCOMPARE(result.degree, 2);
+        QCOMPARE(result.coefficients[0].toString(), QString("0/1"));
+        QCOMPARE(result.coefficients[1].toString(), QString("1/1"));
+        QCOMPARE(result.coefficients[2].toString(), QString("2/1"));
+    }
+    void testMUL_Pxk_P_k2(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("1","1"),
+            RationalNumber("2","1")
+        };
+        PolynomialNumber p(1, c);
+        PolynomialNumber result = Polinomial::MUL_Pxk_P(p, 2);
+        QCOMPARE(result.degree, 3);
+        QCOMPARE(result.coefficients[0].toString(), QString("0/1"));
+        QCOMPARE(result.coefficients[1].toString(), QString("0/1"));
+        QCOMPARE(result.coefficients[2].toString(), QString("1/1"));
+        QCOMPARE(result.coefficients[3].toString(), QString("2/1"));
+    }
+
+    // ===== NMR_P_P (P-13) =====
+    void testNMR_P_P(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("1","1"),
+            RationalNumber("2","1")
+        };
+        PolynomialNumber p(1, c);
+        PolynomialNumber result = Polinomial::NMR_P_P(p);
+        QCOMPARE(result.degree, 1);
+        QCOMPARE(result.coefficients[0].toString(), QString("1/1"));
+        QCOMPARE(result.coefficients[1].toString(), QString("2/1"));
+    }
+    void testNMR_P_P_zero(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("0","1")
+        };
+        PolynomialNumber p(0, c);
+        PolynomialNumber result = Polinomial::NMR_P_P(p);
+        QCOMPARE(result.degree, 0);
+        QCOMPARE((int)result.coefficients.size(), 1);
+        QCOMPARE(result.coefficients[0].toString(), QString("0/1"));
+    }
+    // ===== NMR_P_P (P-13) =====
+void testNMR_P_P_square(){
+    std::vector<RationalNumber> c = {
+        RationalNumber("1","1"),
+        RationalNumber("2","1"),
+        RationalNumber("1","1")
+    };
+    PolynomialNumber p(2, c);
+    PolynomialNumber result = Polinomial::NMR_P_P(p);
+    QCOMPARE(result.degree, 1);
+    // Проверяем коэффициенты (должно быть 1*x + 1)
+    QCOMPARE(result.coefficients[0].toString(), QString("1/1"));
+    QCOMPARE(result.coefficients[1].toString(), QString("1/1"));
+}
+
 };
 
 
