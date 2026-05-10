@@ -129,7 +129,53 @@ Number Polinomial::DEG_P_N(const PolynomialNumber &p)
 // Палешева Ариадна 5387
 RationalNumber Polinomial::FAC_P_Q(const PolynomialNumber &p)
 {
-    return RationalNumber();
+    // Находим первый ненулевой коэффициент и проверяем, не является ли полином нулевым
+    int firstNonZero = -1;
+    for (int i = 0; i <= p.degree; i++) {
+        const IntegerNumber& num = p.coefficients[i].numerator;
+        bool isZero = (num.n == 0 && num.digits.size() == 1 && num.digits[0] == 0);
+        if (!isZero) {
+            firstNonZero = i;
+            break;
+        }
+    }
+    
+    // Если не нашли ни одного ненулевого коэффициента - полином нулевой
+    if (firstNonZero == -1)
+        throw std::logic_error("Это нулевой полином, выносить нечего");
+    
+    // Инициализация первым ненулевым коэффициентом
+    const RationalNumber& firstCoeff = p.coefficients[firstNonZero];
+    
+    Number gcf = Integer::ABS_Z_N(firstCoeff.numerator); //|числитель| (как натуральное число)
+    Number lcm = firstCoeff.denominator; //знаменатель
+    
+    // Проход по всем остальным коэффициентам
+    for (int i = firstNonZero + 1; i <= p.degree; i++) {
+        const RationalNumber& coeff = p.coefficients[i];
+        const IntegerNumber& num = coeff.numerator;
+        
+        // Проверяем, является ли коэффициент нулевым
+        bool isZero = (num.n == 0 && num.digits.size() == 1 && num.digits[0] == 0);
+        
+        if (!isZero) {
+            Number absNum = Integer::ABS_Z_N(num); // |числитель|
+            Number den = coeff.denominator; //знаменатель
+            
+            // gcf = НОД(gcf, |числитель|)
+            Number nextGcf = Natural::GCF_NN_N(gcf, absNum);
+            gcf = nextGcf;
+            
+            // lcm = НОК(lcm, знаменатель)
+            lcm = Natural::LCM_NN_N(lcm, den);
+        }
+    }
+    
+    // Преобразуем натуральное gcf в целое число (положительное)
+    IntegerNumber gcfInt = Integer::TRANS_N_Z(gcf);
+    
+    // Возвращаем результат как рациональное число (gcf/lcm)
+    return RationalNumber(gcfInt, lcm);
 }
 
 // #40 P-8
