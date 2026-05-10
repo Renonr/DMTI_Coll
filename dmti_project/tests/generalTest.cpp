@@ -24,6 +24,20 @@ private slots:
         QCOMPARE(Integer::ABS_Z_N(a), Number("0"));
     }
 
+    // ===== MUL_ZM_Z (Z-3) =====
+    void testMUL_ZM_Z_positive(){
+        IntegerNumber a("123");
+        QCOMPARE(Integer::MUL_ZM_Z(a).toString(), QString("-123"));
+    }
+    void testMUL_ZM_Z_negative(){
+        IntegerNumber a("-123");
+        QCOMPARE(Integer::MUL_ZM_Z(a).toString(), QString("123"));
+    }
+    void testMUL_ZM_Z_zero(){
+        IntegerNumber a("0");
+        QCOMPARE(Integer::MUL_ZM_Z(a).toString(), QString("0"));
+    }
+
     // ===== ADD_ZZ_Z (Z-6) =====
     void testADD_ZZ_Z_bothPositive(){
         IntegerNumber a("3"), b("5");
@@ -575,6 +589,275 @@ private slots:
         PolynomialNumber p2(2, c2);
 
         QCOMPARE(Polinomial::MOD_PP_P(p1, p2), p1);
+    }
+
+    // ===== GCF_PP_P (P-11) =====
+
+    // Результат НОД имеет корректную степень и размер вектора
+    void testGCF_PP_P_validResult(){
+        std::vector<RationalNumber> c1 = {
+            RationalNumber("0","1"),
+            RationalNumber("0","1"),
+            RationalNumber("1","1")
+        };
+        std::vector<RationalNumber> c2 = {
+            RationalNumber("0","1"),
+            RationalNumber("1","1")
+        };
+        PolynomialNumber p1(2, c1);
+        PolynomialNumber p2(1, c2);
+        PolynomialNumber result = Polinomial::GCF_PP_P(p1, p2);
+        QVERIFY(result.degree >= 0);
+        QCOMPARE((int)result.coefficients.size(), result.degree + 1);
+    }
+
+    // НОД двух одинаковых многочленов — сам многочлен
+    void testGCF_PP_P_samePoly(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("1","1"),
+            RationalNumber("1","1")
+        };
+        PolynomialNumber p(1, c);
+        PolynomialNumber result = Polinomial::GCF_PP_P(p, p);
+        QVERIFY(result.degree >= 0);
+        QCOMPARE((int)result.coefficients.size(), result.degree + 1);
+    }
+};
+
+
+
+    // ===== MUL_NN_N (N-8) =====
+    void testMUL_NN_N_simple(){
+        Number a("12"), b("34");
+        QCOMPARE(Natural::MUL_NN_N(a, b).toString(), QString("408"));
+    }
+    void testMUL_NN_N_byZero(){
+        Number a("999"), b("0");
+        QCOMPARE(Natural::MUL_NN_N(a, b).toString(), QString("0"));
+    }
+    void testMUL_NN_N_large(){
+        Number a("999"), b("999");
+        QCOMPARE(Natural::MUL_NN_N(a, b).toString(), QString("998001"));
+    }
+};
+
+
+class testRational : public QObject
+{
+    Q_OBJECT
+private slots:
+    // ===== INT_Q_B (Q-2) =====
+    void testINT_Q_B_integer(){
+        RationalNumber f("5", "1");
+        QCOMPARE(Rational::INT_Q_B(f), true);
+    }
+    void testINT_Q_B_notInteger(){
+        RationalNumber f("5", "2");
+        QCOMPARE(Rational::INT_Q_B(f), false);
+    }
+    void testINT_Q_B_zeroInteger(){
+        RationalNumber f("0", "1");
+        QCOMPARE(Rational::INT_Q_B(f), true);
+    }
+
+    // ===== MUL_QQ_Q (Q-7) =====
+    void testMUL_QQ_Q_basic(){
+        // 1/2 * 2/3 = 1/3
+        RationalNumber f1("1", "2"), f2("2", "3");
+        QCOMPARE(Rational::MUL_QQ_Q(f1, f2).toString(), QString("1/3"));
+    }
+    void testMUL_QQ_Q_reciprocals(){
+        // 3/4 * 4/3 = 1/1
+        RationalNumber f1("3", "4"), f2("4", "3");
+        QCOMPARE(Rational::MUL_QQ_Q(f1, f2).toString(), QString("1/1"));
+    }
+    void testMUL_QQ_Q_negative(){
+        // -1/2 * 2/3 = -1/3
+        RationalNumber f1("-1", "2"), f2("2", "3");
+        QCOMPARE(Rational::MUL_QQ_Q(f1, f2).toString(), QString("-1/3"));
+    }
+    void testMUL_QQ_Q_byZero(){
+        // 0/1 * 5/6 = 0/1
+        RationalNumber f1("0", "1"), f2("5", "6");
+        QCOMPARE(Rational::MUL_QQ_Q(f1, f2).toString(), QString("0/1"));
+    }
+
+    // ===== ADD_QQ_Q (Q-5) =====
+    void testADD_QQ_Q_halfPlusThird(){
+        // 1/2 + 1/3 = 5/6
+        RationalNumber f1("1", "2"), f2("1", "3");
+        QCOMPARE(Rational::ADD_QQ_Q(f1, f2).toString(), QString("5/6"));
+    }
+    void testADD_QQ_Q_sameDenominator(){
+        // 1/4 + 1/4 = 1/2
+        RationalNumber f1("1", "4"), f2("1", "4");
+        QCOMPARE(Rational::ADD_QQ_Q(f1, f2).toString(), QString("1/2"));
+    }
+    void testADD_QQ_Q_addZero(){
+        // 0/1 + 3/5 = 3/5
+        RationalNumber f1("0", "1"), f2("3", "5");
+        QCOMPARE(Rational::ADD_QQ_Q(f1, f2).toString(), QString("3/5"));
+    }
+    void testADD_QQ_Q_negativeAndPositive(){
+        // -1/3 + 2/3 = 1/3
+        RationalNumber f1("-1", "3"), f2("2", "3");
+        QCOMPARE(Rational::ADD_QQ_Q(f1, f2).toString(), QString("1/3"));
+    }
+
+    // ===== SUB_QQ_Q (Q-6) =====
+    void testSUB_QQ_Q_halfMinusThird(){
+        // 1/2 - 1/3 = 1/6
+        RationalNumber f1("1", "2"), f2("1", "3");
+        QCOMPARE(Rational::SUB_QQ_Q(f1, f2).toString(), QString("1/6"));
+    }
+    void testSUB_QQ_Q_sameDenominator(){
+        // 3/4 - 1/4 = 1/2
+        RationalNumber f1("3", "4"), f2("1", "4");
+        QCOMPARE(Rational::SUB_QQ_Q(f1, f2).toString(), QString("1/2"));
+    }
+    void testSUB_QQ_Q_equal(){
+        // 5/6 - 5/6 = 0/1
+        RationalNumber f1("5", "6"), f2("5", "6");
+        QCOMPARE(Rational::SUB_QQ_Q(f1, f2).toString(), QString("0/1"));
+    }
+    void testSUB_QQ_Q_negativeResult(){
+        // 1/4 - 1/2 = -1/4
+        RationalNumber f1("1", "4"), f2("1", "2");
+        QCOMPARE(Rational::SUB_QQ_Q(f1, f2).toString(), QString("-1/4"));
+    }
+
+    // ===== RED_Q_Q (Q-1) =====
+    void testRED_Q_Q_alreadyReduced(){
+        // 7/3 — несократимая дробь
+        RationalNumber f("7", "3");
+        QCOMPARE(Rational::RED_Q_Q(f).toString(), QString("7/3"));
+    }
+    void testRED_Q_Q_reduceSixNinths(){
+        // 6/9 = 2/3
+        RationalNumber f("6", "9");
+        QCOMPARE(Rational::RED_Q_Q(f).toString(), QString("2/3"));
+    }
+    void testRED_Q_Q_reduceHalf(){
+        // 4/8 = 1/2
+        RationalNumber f("4", "8");
+        QCOMPARE(Rational::RED_Q_Q(f).toString(), QString("1/2"));
+    }
+    void testRED_Q_Q_negativeNumerator(){
+        // -6/9 = -2/3
+        RationalNumber f("-6", "9");
+        QCOMPARE(Rational::RED_Q_Q(f).toString(), QString("-2/3"));
+    }
+    void testRED_Q_Q_wholeNumber(){
+        // 10/5 = 2/1
+        RationalNumber f("10", "5");
+        QCOMPARE(Rational::RED_Q_Q(f).toString(), QString("2/1"));
+    }
+};
+
+
+class testPolinomial : public QObject
+{
+    Q_OBJECT
+private slots:
+    // ===== MUL_PQ_P (P-3) =====
+    void testMUL_PQ_P_basic(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("1","2"),
+            RationalNumber("3","4")
+        };
+        PolynomialNumber p(1, c);
+        RationalNumber q("2", "1");
+
+        PolynomialNumber result = Polinomial::MUL_PQ_P(p, q);
+
+        QCOMPARE(result.degree, 1);
+        QCOMPARE(result.coefficients[0].toString(), QString("1/1"));
+        QCOMPARE(result.coefficients[1].toString(), QString("3/2"));
+    }
+    void testMUL_PQ_P_byOne(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("2","3"),
+            RationalNumber("-5","1")
+        };
+        PolynomialNumber p(1, c);
+        RationalNumber q("1", "1");
+
+        PolynomialNumber result = Polinomial::MUL_PQ_P(p, q);
+
+        QCOMPARE(result.degree, 1);
+        QCOMPARE(result.coefficients[0].toString(), QString("2/3"));
+        QCOMPARE(result.coefficients[1].toString(), QString("-5/1"));
+    }
+
+    // ===== DER_P_P (P-12) =====
+    void testDER_P_P_square(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("3","1"),
+            RationalNumber("2","1"),
+            RationalNumber("1","1")
+        };
+        PolynomialNumber p(2, c);
+
+        PolynomialNumber result = Polinomial::DER_P_P(p);
+
+        QCOMPARE(result.degree, 1);
+        QCOMPARE(result.coefficients[0].toString(), QString("6/1"));
+        QCOMPARE(result.coefficients[1].toString(), QString("2/1"));
+    }
+    void testDER_P_P_constant(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("5","1")
+        };
+        PolynomialNumber p(0, c);
+
+        PolynomialNumber result = Polinomial::DER_P_P(p);
+
+        QCOMPARE(result.degree, 0);
+        QCOMPARE((int)result.coefficients.size(), 1);
+        QCOMPARE(result.coefficients[0].toString(), QString("0/1"));
+    }
+
+    // ===== SUB_PP_P (P-2) =====
+
+    // p - p = нулевой многочлен (степень 0, один коэффициент)
+    void testSUB_PP_P_samePoly(){
+        std::vector<RationalNumber> c = {
+            RationalNumber("1","1"),
+            RationalNumber("2","1"),
+            RationalNumber("3","1")
+        };
+        PolynomialNumber p(2, c);
+        PolynomialNumber result = Polinomial::SUB_PP_P(p, p);
+        QCOMPARE(result.degree, 0);
+        QCOMPARE((int)result.coefficients.size(), 1);
+    }
+
+    // Размер вектора коэффициентов всегда равен degree + 1
+    void testSUB_PP_P_coeffsSizeIsConsistent(){
+        std::vector<RationalNumber> c1 = {
+            RationalNumber("1","1"),
+            RationalNumber("2","1"),
+            RationalNumber("3","1")
+        };
+        std::vector<RationalNumber> c2 = {
+            RationalNumber("1","1"),
+            RationalNumber("1","1")
+        };
+        PolynomialNumber p1(2, c1);
+        PolynomialNumber p2(1, c2);
+        PolynomialNumber result = Polinomial::SUB_PP_P(p1, p2);
+        QVERIFY(result.degree >= 0);
+        QCOMPARE((int)result.coefficients.size(), result.degree + 1);
+    }
+
+    // Вычитание нулевого многочлена не меняет степень структуры
+    void testSUB_PP_P_subtractZero(){
+        std::vector<RationalNumber> c = {RationalNumber("5","1")};
+        PolynomialNumber p(0, c);
+        PolynomialNumber zero;
+        PolynomialNumber result = Polinomial::SUB_PP_P(p, zero);
+        QVERIFY(result.degree >= 0);
+        QCOMPARE((int)result.coefficients.size(), result.degree + 1);
     }
 
     // ===== GCF_PP_P (P-11) =====

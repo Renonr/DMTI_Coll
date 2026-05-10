@@ -4,9 +4,13 @@ Rational::Rational() {}
 
 // #26 Q-2
 // Проверка сокращенного дробного на целое
-// Сериков Владислав 5387
+// Сериков Владислав 5387 (Ковалев Иван)
 bool Rational::INT_Q_B(const RationalNumber &frac)
 {
+    Number denom = frac.denominator;
+    if(denom.n == 0 && denom.digits[0] == 1){
+        return true;
+    }
     return false;
 }
 
@@ -26,23 +30,45 @@ RationalNumber Rational::TRANS_Z_Q(const IntegerNumber &num)
 // Ковалёв Иван 5387
 IntegerNumber Rational::TRANS_Q_Z(const RationalNumber &frac)
 {
-    return IntegerNumber();
+    RationalNumber shortFrac = RED_Q_Q(frac);
+    if(INT_Q_B(shortFrac) || (frac.numerator.n == 0 && frac.numerator.digits[0] == 0)){
+        return shortFrac.numerator;
+    } else{
+        throw std::invalid_argument("Число не является целым");
+    }
 }
 
 // #29 Q-5
 // Сложение дробей
-// Клочкова Лидия 5387
+// Клочкова Лидия 5387 (Ковалев Иван)
 RationalNumber Rational::ADD_QQ_Q(const RationalNumber &frac1, const RationalNumber &frac2)
 {
-    return RationalNumber();
+    Number fDenomerator1 = frac1.denominator;
+    Number fDenomerator2 = frac2.denominator;
+
+    if(COM_NN_D(fDenomerator1, fDenomerator2) == 0){
+        IntegerNumber sumNumerator = ADD_ZZ_Z(frac1.numerator, frac2.numerator);
+        return RationalNumber(sumNumerator, fDenomerator1);
+    }
+
+    Number generalDenom = LCM_NN_N(fDenomerator1, fDenomerator2);
+
+    IntegerNumber fMultply = TRANS_N_Z(DIV_NN_N(generalDenom, fDenomerator1));
+    IntegerNumber sMultply = TRANS_N_Z(DIV_NN_N(generalDenom, fDenomerator2));
+
+    fMultply = MUL_ZZ_Z(frac1.numerator, fMultply);
+    sMultply = MUL_ZZ_Z(frac2.numerator, sMultply);
+
+    return RationalNumber(ADD_ZZ_Z(fMultply, sMultply), generalDenom);
 }
 
 // #30 Q-6
 // Вычитание дробей
-// Палешева Ариадна 5387
+// Палешева Ариадна 5387 (Ковалев Иван)
 RationalNumber Rational::SUB_QQ_Q(const RationalNumber &frac1, const RationalNumber &frac2)
 {
-    return RationalNumber();
+    RationalNumber negFrac2 = RationalNumber(MUL_ZM_Z(frac2.numerator), frac2.denominator);
+    return ADD_QQ_Q(frac1, negFrac2);
 }
 
 // #31 Q-7
@@ -50,10 +76,7 @@ RationalNumber Rational::SUB_QQ_Q(const RationalNumber &frac1, const RationalNum
 // Кушаев Дмитрий 5387
 RationalNumber Rational::MUL_QQ_Q(const RationalNumber &frac1, const RationalNumber &frac2){
 
-    // по умолчанию я сокращаю дроби, чтобы вычисления были
-    // менее затратными по ресурсам
-    // но, возможно, это не подразумевается самой функцией
-    // а может и вовсе сокращение более затратно, чем умножение))
+    // При умножении дробей они сокращаются. Результат также сокращён
 
     RationalNumber red_frac1 = RED_Q_Q(frac1);
     RationalNumber red_frac2 = RED_Q_Q(frac2);
@@ -93,8 +116,20 @@ RationalNumber Rational::RED_Q_Q(const RationalNumber &frac) {
 
 // #32 Q-8
 // Деление дробей
-// Грачева Елизавета 5387
+// Грачева Елизавета 5387 (Ковалев Иван)
 RationalNumber Rational::DIV_QQ_Q(const RationalNumber &frac1, const RationalNumber &frac2)
 {
-    return RationalNumber();
+    if (COM_NN_D(ABS_Z_N(frac2.numerator), Number("0")) == 0) {
+        throw std::invalid_argument("Деление на ноль");
+    }
+
+    Number revDenominator = TRANS_Z_N(frac2.numerator);
+    IntegerNumber revNumerator = TRANS_N_Z(frac2.denominator);
+    if(SGN_Z_D(frac2.numerator) == -1){
+        revNumerator = MUL_ZM_Z(revNumerator);
+    }
+
+    RationalNumber reverseFrac2 = RationalNumber(revNumerator, revDenominator);
+
+    return MUL_QQ_Q(frac1, reverseFrac2);
 }

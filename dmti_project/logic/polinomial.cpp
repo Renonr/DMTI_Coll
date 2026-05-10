@@ -63,7 +63,13 @@ PolynomialNumber Polinomial::SUB_PP_P(const PolynomialNumber &p1, const Polynomi
 // Сериков Владислав 5387
 PolynomialNumber Polinomial::MUL_PQ_P(const PolynomialNumber &p, const RationalNumber &q)
 {
-    return PolynomialNumber();
+    PolynomialNumber result = p;
+
+    for(int i = 0; i <= result.degree; i++){
+        result.coefficients[i] = MUL_QQ_Q(result.coefficients[i], q);
+    }
+
+    return result;
 }
 
 // #36 P-4
@@ -79,7 +85,7 @@ PolynomialNumber Polinomial::MUL_Pxk_P(const PolynomialNumber &p, const Number &
 // Ковалев Иван 5387
 RationalNumber Polinomial::LED_P_Q(const PolynomialNumber &p)
 {
-    return RationalNumber();
+    return p.get_coeff(0);
 }
 
 // #38 P-6
@@ -175,7 +181,21 @@ PolynomialNumber Polinomial::GCF_PP_P(const PolynomialNumber &p1, const Polynomi
 // Сериков Владислав 5387
 PolynomialNumber Polinomial::DER_P_P(const PolynomialNumber &p)
 {
-    return PolynomialNumber();
+    if(p.degree == 0){
+        std::vector<RationalNumber> zero_coeffs;
+        zero_coeffs.push_back(RationalNumber("0", "1"));
+        return PolynomialNumber(0, zero_coeffs);
+    }
+
+    std::vector<RationalNumber> result_coeffs;
+
+    for(int i = 0; i < p.degree; i++){
+        int power = p.degree - i;
+        RationalNumber power_num(QString::number(power), "1");
+        result_coeffs.push_back(MUL_QQ_Q(p.coefficients[i], power_num));
+    }
+
+    return PolynomialNumber(p.degree - 1, result_coeffs);
 }
 
 // #45 P-13
