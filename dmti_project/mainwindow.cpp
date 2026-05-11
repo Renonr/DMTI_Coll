@@ -11,15 +11,6 @@
 #include <QComboBox>
 #include <QPushButton>
 #include <QLabel>
-#include <QTextEdit>
-#include <QScrollArea>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QFileDialog>
-#include <QFile>
-#include <QTextStream>
-#include <QFont>
-#include <QDateTime>
 
 #include "logic/natural.h"
 #include "logic/integer.h"
@@ -59,57 +50,19 @@ MainWindow::MainWindow(QWidget *parent)
     controlsLayout->addWidget(new QLabel("Тип:", this));
     ui->typeComboBox = new QComboBox(this);
     ui->typeComboBox->addItems({"Natural", "Integer", "Rational", "Polynomial"});
-    ui->typeComboBox->setMinimumWidth(120);
-    controlsLayout->addWidget(ui->typeComboBox);
 
-    controlsLayout->addWidget(new QLabel("Функция:", this));
-    ui->funcComboBox = new QComboBox(this);
     ui->funcComboBox->addItems({"COM_NN_D", "NZER_N_B", "ADD_1N_N", "ADD_NN_N", "SUB_NN_N", "MUL_ND_N", "MUL_Nk_N",
                                 "MUL_NN_N", "SUB_NDN_N", "DIV_NN_Dk", "DIV_NN_N", "GCF_NN_N", "LCM_NN_N", "MOD_NN_N"});
-    ui->funcComboBox->setMinimumWidth(200);
-    controlsLayout->addWidget(ui->funcComboBox);
-    controlsLayout->addStretch();
-
-    auto *actionLayout = new QHBoxLayout();
-    ui->calcButton = new QPushButton("Рассчитать", this);
-    ui->calcButton->setMinimumWidth(100);
-    actionLayout->addWidget(ui->calcButton);
-
-    saveButton = new QPushButton("💾 Сохранить результат", this);
-    saveButton->setMinimumWidth(150);
-    saveButton->setEnabled(false);  // ✅ Неактивна, пока нет результата
-    saveButton->setToolTip("Сохранить результат в текстовый файл");
-    actionLayout->addWidget(saveButton);
-    actionLayout->addStretch();
-
-    resultDisplay = new QTextEdit(this);
-    resultDisplay->setReadOnly(true);
-    resultDisplay->setPlaceholderText("Результат появится здесь...");
-    resultDisplay->setMinimumHeight(80);
-    resultDisplay->setMaximumHeight(200);
-    resultDisplay->setLineWrapMode(QTextEdit::WidgetWidth);
-    resultDisplay->setFont(QFont("Consolas", 10));  // ✅ Моноширинный шрифт
-    resultDisplay->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    resultDisplay->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-    mainLayout->addLayout(controlsLayout);
-    mainLayout->addWidget(inputScroll);
-    mainLayout->addLayout(actionLayout);
-    mainLayout->addWidget(new QLabel("Результат:", this));
-    mainLayout->addWidget(resultDisplay);
-    mainLayout->addStretch();
-
-    setCentralWidget(centralWidget);
 
     createFields({"A", "B"}, "Natural");
-    resultDisplay->setText("Выберите функцию и введите данные");
+
+    ui->resultLabel->setText("Выберите функцию");
 
     connect(ui->typeComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &MainWindow::onTypeChanged);
     connect(ui->funcComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged),
             this, &MainWindow::onFunctionChanged);
     connect(ui->calcButton, &QPushButton::clicked, this, &MainWindow::onCalculate);
-    connect(saveButton, &QPushButton::clicked, this, &MainWindow::onSaveToFile);  // ✅ Новая кнопка
 }
 
 MainWindow::~MainWindow()
@@ -137,8 +90,7 @@ void MainWindow::onTypeChanged(int index)
         ui->funcComboBox->addItems({"ADD_PP_P", "SUB_PP_P", "MUL_PP_P", "MUL_Pxk_P", "MUL_PQ_P", "DIV_PP_P", "MOD_PP_P",
                                     "GCF_PP_P", "NMR_P_P", "DER_P_P", "DEG_P_N", "LED_P_Q", "FAC_P_Q"});
 
-    resultDisplay->setText("Выберите функцию");
-    saveButton->setEnabled(false);
+    ui->resultLabel->setText("Выберите функцию");
 }
 
 void MainWindow::onFunctionChanged(int index)
@@ -168,10 +120,8 @@ void MainWindow::onFunctionChanged(int index)
     }
 
     createFields(labels, type);
-    resultDisplay->setText("Введите данные");
-    saveButton->setEnabled(false);
+    ui->resultLabel->setText("Введите данные");
 }
-
 void MainWindow::onCalculate()
 {
     QStringList inputs;
@@ -188,82 +138,11 @@ void MainWindow::onCalculate()
         QString result = executeOperation(ui->typeComboBox->currentText(),
                                           ui->funcComboBox->currentText(),
                                           inputs);
-
-        if (result.length() > 100) {
-            QString formatted;
-            int pos = 0;
-            while (pos < result.length()) {
-                int nextSpace = result.indexOf(' ', pos + 80);
-                if (nextSpace == -1) nextSpace = result.length();
-                formatted += result.mid(pos, nextSpace - pos) + "\n";
-                pos = nextSpace + 1;
-            }
-            result = formatted.trimmed();
-        }
-
-        resultDisplay->setText(result);
-        lastResult = result;
-        saveButton->setEnabled(true);
-
-        // Прокрутка в начало
-        QTextCursor cursor = resultDisplay->textCursor();
-        cursor.setPosition(0);
-        resultDisplay->setTextCursor(cursor);
-        resultDisplay->ensureCursorVisible();
-
+        ui->resultLabel->setText(result);
     } catch (const std::exception &e) {
         QMessageBox::critical(this, "Ошибка", QString::fromUtf8(e.what()));
-        resultDisplay->setText("Ошибка: " + QString::fromUtf8(e.what()));
-        saveButton->setEnabled(false);
+        ui->resultLabel->setText("Ошибка вычисления");
     }
-}
-
-void MainWindow::onSaveToFile()
-{
-    if (lastResult.isEmpty()) {
-        QMessageBox::information(this, "Информация", "Нет результата для сохранения");
-        return;
-    }
-
-    QString fileName = QFileDialog::getSaveFileName(
-        this,
-        "Сохранить результат",
-        "result.txt",
-        "Text Files (*.txt);;All Files (*)"
-        );
-
-    if (fileName.isEmpty()) {
-        return;  // Пользователь отменил
-    }
-
-    QFile file(fileName);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QMessageBox::critical(this, "Ошибка", "Не удалось открыть файл для записи");
-        return;
-    }
-
-    QTextStream out(&file);
-
-    out << "========================================\n";
-    out << "Результат вычисления алгоритмической арифметики\n";
-    out << "Дата: " << QDateTime::currentDateTime().toString("dd.MM.yyyy hh:mm:ss") << "\n";
-    out << "Тип: " << ui->typeComboBox->currentText() << "\n";
-    out << "Функция: " << ui->funcComboBox->currentText() << "\n";
-    out << "========================================\n\n";
-
-    out << "Входные данные:\n";
-    for (int i = 0; i < fieldEditors.size(); i++) {
-        out << "  " << char('A' + i) << ": " << fieldEditors[i]->text() << "\n";
-    }
-    out << "\n";
-
-    out << "Результат:\n";
-    out << lastResult << "\n";
-    out << "\n========================================\n";
-
-    file.close();
-
-    QMessageBox::information(this, "Успех", "Результат сохранён в:\n" + fileName);
 }
 
 void MainWindow::clearFields()
@@ -312,20 +191,10 @@ void MainWindow::createFields(const QStringList &labels, const QString &type)
         auto *edit = new QLineEdit(this);
         edit->setValidator(validator);
         edit->setPlaceholderText(label);
-
-        // ✅ Адаптивная ширина полей
-        if (type == "Polynomial") {
-            edit->setMinimumWidth(300);
-            edit->setMaximumWidth(600);
-            edit->setFont(QFont("Consolas", 10));
-            edit->setToolTip("Ввод: коэффициенты через пробел, от старшей степени. Пример: '1 0 -1' = x² - 1");
-        } else {
-            edit->setMinimumWidth(150);
-            edit->setMaximumWidth(300);
-        }
-        edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        edit->setMinimumWidth(180);
 
         dynamicLayout->addRow(label + ":", edit);
+
         fieldEditors.append(edit);
     }
 
@@ -335,7 +204,7 @@ void MainWindow::createFields(const QStringList &labels, const QString &type)
 RationalNumber MainWindow::parseRational(const QString &s)
 {
     QStringList parts = s.split('/');
-    if (parts.size() == 2 && !parts[1].isEmpty()) {
+    if (parts.size() == 2) {
         return RationalNumber(parts[0], parts[1]);
     }
     return RationalNumber(s, "1");
@@ -550,7 +419,7 @@ QString MainWindow::executeOperation(const QString &type, const QString &func, c
         }
         else if (func == "DEG_P_N") {
             PolynomialNumber a = parsePolynomial(inputs[0]);
-            return Polinomial().DEG_P_N(a).toString();
+            return Polinomial().DEG_P_N(a).toString();;
         }
         else if (func == "LED_P_Q") {
             PolynomialNumber a = parsePolynomial(inputs[0]);

@@ -5,27 +5,15 @@
 #include <QFormLayout>
 #include <QLineEdit>
 #include <QList>
-#include <QTextEdit>
-#include <QPushButton>
-#include <QScrollArea>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QFileDialog>
-#include <QFile>
-#include <QTextStream>
-#include <QMessageBox>
-#include <QFont>
-#include <QDebug>
-
-#include "logic/natural.h"
-#include "logic/integer.h"
-#include "logic/rational.h"
-#include "logic/polinomial.h"
-#include "logic/number_structures.h"
+#include <QStringList>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
+// Вперед объявление структур
+struct RationalNumber;
+struct PolynomialNumber;
 
 class MainWindow : public QMainWindow
 {
@@ -44,12 +32,12 @@ private slots:
 private:
     void clearFields();
     void createFields(const QStringList &labels, const QString &type);
+    QString executeOperation(const QString &type, const QString &func, const QStringList &inputs);
     RationalNumber parseRational(const QString &s);
     PolynomialNumber parsePolynomial(const QString &s);
-    QString executeOperation(const QString &type, const QString &func, const QStringList &inputs);
 
     Ui::MainWindow *ui;
-    QFormLayout *dynamicLayout;
+    QFormLayout *dynamicLayout = nullptr;
     QList<QLineEdit*> fieldEditors;
 
     QTextEdit *resultDisplay;
