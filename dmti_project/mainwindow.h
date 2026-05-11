@@ -27,6 +27,7 @@ private slots:
     void onTypeChanged(int index);
     void onFunctionChanged(int index);
     void onCalculate();
+    void onSaveToFile();
 
 private:
     void clearFields();
@@ -38,6 +39,10 @@ private:
     Ui::MainWindow *ui;
     QFormLayout *dynamicLayout = nullptr;
     QList<QLineEdit*> fieldEditors;
+
+    QTextEdit *resultDisplay;
+    QPushButton *saveButton;
+    QString lastResult;
 };
 
 #endif // MAINWINDOW_H

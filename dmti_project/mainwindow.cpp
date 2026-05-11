@@ -23,19 +23,32 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setWindowTitle("Калькулятор коллоквиум");
+    setMinimumSize(800, 600);
 
-    if (!ui->fieldsContainer) {
-        qCritical() << "fieldsContainer not found!";
-        return;
-    }
+    auto *centralWidget = new QWidget(this);
+    auto *mainLayout = new QVBoxLayout(centralWidget);
+    mainLayout->setContentsMargins(10, 10, 10, 10);
+    mainLayout->setSpacing(10);
 
-    if (ui->fieldsContainer->layout()) {
-        delete ui->fieldsContainer->layout();
-    }
+    auto *inputScroll = new QScrollArea(this);
+    inputScroll->setWidgetResizable(true);
+    inputScroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    inputScroll->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    inputScroll->setMaximumHeight(250);
 
-    dynamicLayout = new QFormLayout(ui->fieldsContainer);
-    ui->fieldsContainer->setLayout(dynamicLayout);
+    auto *inputContainer = new QWidget(inputScroll);
+    ui->fieldsContainer = inputContainer;
 
+    dynamicLayout = new QFormLayout(inputContainer);
+    dynamicLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
+    dynamicLayout->setLabelAlignment(Qt::AlignRight);
+    inputContainer->setLayout(dynamicLayout);
+    inputScroll->setWidget(inputContainer);
+
+    auto *controlsLayout = new QHBoxLayout();
+    controlsLayout->addWidget(new QLabel("Тип:", this));
+    ui->typeComboBox = new QComboBox(this);
     ui->typeComboBox->addItems({"Natural", "Integer", "Rational", "Polynomial"});
 
     ui->funcComboBox->addItems({"COM_NN_D", "NZER_N_B", "ADD_1N_N", "ADD_NN_N", "SUB_NN_N", "MUL_ND_N", "MUL_Nk_N",

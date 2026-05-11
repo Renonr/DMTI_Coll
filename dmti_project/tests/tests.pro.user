@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 16.0.1, 2026-05-10T22:37:36. -->
+<!-- Written by QtCreator 16.0.1, 2026-05-11T20:02:14. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -72,7 +72,6 @@
    </valuemap>
    <value type="bool" key="AutoTest.ApplyFilter">false</value>
    <valuemap type="QVariantMap" key="AutoTest.CheckStates">
-    <value type="Qt::CheckState" key="1@:Qt Test">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testABS_Z_N_neg">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testABS_Z_N_poz">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testABS_Z_N_zero">Unchecked</value>
@@ -180,7 +179,6 @@
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_NDN_N_zero">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_PP_P_coeffsSizeIsConsistent">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_PP_P_samePoly">Unchecked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_PP_P_subtractZero">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_QQ_Q_equal">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_QQ_Q_halfMinusThird">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_QQ_Q_negativeResult">Unchecked</value>
