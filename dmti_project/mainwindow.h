@@ -35,7 +35,6 @@ private:
     void saveResultToFile(const QString &type, const QString &func, const QStringList &inputs, const QString &result);
     RationalNumber parseRational(const QString &s);
     PolynomialNumber parsePolynomial(const QString &s);
-    PolynomialNumber parsePolynomialExpr(const QString &expr);
 
     Ui::MainWindow *ui;
     QFormLayout *dynamicLayout = nullptr;
