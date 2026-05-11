@@ -111,19 +111,19 @@ struct RationalNumber {
     IntegerNumber numerator;
     Number denominator;
 
-    RationalNumber(QString nStr, QString dStr)
-        : numerator(nStr), denominator(dStr) {}
+    RationalNumber(QString nStr, QString dStr) : numerator(nStr), denominator(dStr) {}
+    RationalNumber(IntegerNumber num, Number den) : numerator(num), denominator(den) {}
+    RationalNumber() = default;
 
-    RationalNumber(IntegerNumber numerator, Number denominator){
-        this->numerator = numerator;
-        this->denominator = denominator;
+    QString toString() const { return numerator.toString() + "/" + denominator.toString(); }
+
+    friend bool operator==(const RationalNumber &a, const RationalNumber &b) {
+        return a.numerator == b.numerator && a.denominator == b.denominator;
     }
-
-    RationalNumber(){
-    }
-
-    QString toString() const {
-        return numerator.toString() + "/" + denominator.toString();
+    friend bool operator!=(const RationalNumber &a, const RationalNumber &b) { return !(a == b); }
+    friend QDebug operator<<(QDebug dbg, const RationalNumber &r) {
+        QDebugStateSaver saver(dbg);
+        dbg.nospace() << "RationalNumber(" << r.toString() << ")"; return dbg;
     }
 };
 
@@ -131,81 +131,44 @@ struct PolynomialNumber {
     int degree;
     std::vector<RationalNumber> coefficients;
 
-    PolynomialNumber(int degree, std::vector<RationalNumber> coeffs)
-        : degree(degree), coefficients(coeffs) {}
+    PolynomialNumber(int deg, std::vector<RationalNumber> coeffs)
+        : degree(deg), coefficients(std::move(coeffs)) {}
 
-    PolynomialNumber(int degree, RationalNumber coeff){
-
-        this->degree = degree;
-
-        for(int i = 0; i <= degree; i++){
-            coefficients.push_back(RationalNumber());
-        }
-
-        coefficients.push_back(coeff);
+    PolynomialNumber(int deg, RationalNumber coeff) : degree(deg) {
+        coefficients.resize(deg + 1);
+        coefficients[deg] = coeff;
     }
 
-    PolynomialNumber(){
-        degree = 0;
-        coefficients.push_back(RationalNumber());
+    PolynomialNumber() : degree(0) { coefficients.emplace_back(); }
+
+    RationalNumber get_coeff(int deg) const {
+        int index = degree - deg;
+        if (index < 0 || index >= (int)coefficients.size()) return RationalNumber("0", "1");
+        return coefficients[index];
     }
-
-    PolynomialNumber get_member(int degree) const{
-
-        if(degree > this->degree || degree < 0){
-            return PolynomialNumber();
-        }
-
-        RationalNumber coeff = coefficients[this->degree];
-
-        return PolynomialNumber(degree, coeff);
-    }
-
-    RationalNumber get_coeff(int degree) const{
-
-        if(this->degree < degree){
-            return RationalNumber();
-        }
-
-        return coefficients[degree];
-    }
-
-    /*PolynomialNumber operator=(const PolynomialNumber &other){
-
-        if(this == &other) return *this;
-
-        degree = other.degree;
-
-        for(int i = 0; i <= degree; i++){
-            coefficients.push_back(other.coefficients[i]);
-        }
-
-        return *this;
-    }*/
-
-    /*PolynomialNumber operator+(const PolynomialNumber &other){
-
-        Polynomial calc;
-
-        return calc.ADD_PP_P(*this, other);
-    }*/
 
     QString toString() const {
         if (coefficients.empty()) return "0";
-
         QString res;
         for (int i = 0; i <= degree; ++i) {
             QString coeffStr = coefficients[i].toString();
             int power = degree - i;
-
             res += "(" + coeffStr + ")";
-
-            if (power > 0) {
-                res += "x^" + QString::number(power);
-                res += " + ";
-            }
+            if (power > 0) { res += "x^" + QString::number(power) + " + "; }
         }
         return res;
+    }
+
+    friend bool operator==(const PolynomialNumber &a, const PolynomialNumber &b) {
+        if (a.degree != b.degree || a.coefficients.size() != b.coefficients.size()) return false;
+        for (size_t i = 0; i < a.coefficients.size(); ++i)
+            if (!(a.coefficients[i] == b.coefficients[i])) return false;
+        return true;
+    }
+    friend bool operator!=(const PolynomialNumber &a, const PolynomialNumber &b) { return !(a == b); }
+    friend QDebug operator<<(QDebug dbg, const PolynomialNumber &p) {
+        QDebugStateSaver saver(dbg);
+        dbg.nospace() << "PolynomialNumber(" << p.toString() << ")"; return dbg;
     }
 };
 

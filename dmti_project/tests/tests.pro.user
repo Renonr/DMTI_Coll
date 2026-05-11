@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 16.0.1, 2026-05-08T04:50:35. -->
+<!-- Written by QtCreator 16.0.1, 2026-05-10T22:37:36. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -76,11 +76,124 @@
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testABS_Z_N_neg">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testABS_Z_N_poz">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testABS_Z_N_zero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_1N_N_allNines">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_1N_N_carry">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_1N_N_partialCarry">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_1N_N_simple">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_1N_N_zero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_NN_N_large">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_NN_N_overflow">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_NN_N_simple">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_NN_N_withCarry">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_NN_N_zeros">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_PP_P_diff_degree">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_PP_P_leading_zero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_PP_P_opposites">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_PP_P_sameDegree">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_QQ_Q_addZero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_QQ_Q_halfPlusThird">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_QQ_Q_negativeAndPositive">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_QQ_Q_sameDenominator">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_ZZ_Z_bothNegative">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_ZZ_Z_bothPositive">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_ZZ_Z_negPlusBigPos">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_ZZ_Z_opposites">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testADD_ZZ_Z_posPlusBigNeg">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testCOM_NN_D_equal">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testCOM_NN_D_greater">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testCOM_NN_D_less">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testDEG_P_N_constant">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testDEG_P_N_secondDegree">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testDEG_P_N_withZeroSeniorCoeff">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testDEG_P_N_zero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testDER_P_P_constant">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testDER_P_P_square">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testDIV_NN_N_dividendSmaller">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testDIV_NN_N_equal">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testDIV_NN_N_exact">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testDIV_NN_N_large">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testDIV_NN_N_withRemainder">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testGCF_NN_N_basic">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testGCF_NN_N_coprime">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testGCF_NN_N_equal">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testGCF_NN_N_large">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testGCF_NN_N_zeroFirst">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testGCF_PP_P_samePoly">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testGCF_PP_P_validResult">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testINT_Q_B_integer">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testINT_Q_B_notInteger">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testINT_Q_B_zeroInteger">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testInteger">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMOD_NN_N_dividendSmaller">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMOD_NN_N_equal">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMOD_NN_N_large">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMOD_NN_N_noRemainder">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMOD_NN_N_withRemainder">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMOD_PP_P_dividend_less_divisor">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMOD_PP_P_no_remainder">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMOD_PP_P_with_remainder">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_NN_N_byZero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_NN_N_large">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_NN_N_simple">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_Nk_N_k0_noChange">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_Nk_N_k1">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_Nk_N_k2">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_Nk_N_k3">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_Nk_N_zeroNumber">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_PQ_P_basic">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_PQ_P_byOne">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_Pxk_P_k0_noChange">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_Pxk_P_k1">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_Pxk_P_k2">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_QQ_Q_basic">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_QQ_Q_byZero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_QQ_Q_negative">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_QQ_Q_reciprocals">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_ZM_Z_negative">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_ZM_Z_positive">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_ZM_Z_zero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_ZZ_Z_bothNegative">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_ZZ_Z_bothPositive">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_ZZ_Z_byOne">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_ZZ_Z_byZero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testMUL_ZZ_Z_negTimesPos">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testNMR_P_P">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testNMR_P_P_square">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testNMR_P_P_zero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testNZER_N_B_large">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testNZER_N_B_one">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testNZER_N_B_zero">Unchecked</value>
     <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testNatural">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testPolinomial">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testRED_Q_Q_alreadyReduced">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testRED_Q_Q_negativeNumerator">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testRED_Q_Q_reduceHalf">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testRED_Q_Q_reduceSixNinths">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testRED_Q_Q_wholeNumber">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testRational">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSGN_Z_D_minusOne">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSGN_Z_D_negative">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSGN_Z_D_one">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSGN_Z_D_positive">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSGN_Z_D_zero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_NDN_N_greater">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_NDN_N_zero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_PP_P_coeffsSizeIsConsistent">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_PP_P_samePoly">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_PP_P_subtractZero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_QQ_Q_equal">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_QQ_Q_halfMinusThird">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_QQ_Q_negativeResult">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_QQ_Q_sameDenominator">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_ZZ_Z_bothNegative">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_ZZ_Z_equal">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_ZZ_Z_negativeResult">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_ZZ_Z_positive">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testSUB_ZZ_Z_zero">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testTRANS_N_Z">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testTRANS_Z_Q_negative">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testTRANS_Z_Q_positive">Unchecked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Ivan/Desktop/DMTI/DMTI_Coll/dmti_project/tests/generalTest.cpp:testTRANS_Z_Q_zero">Unchecked</value>
    </valuemap>
    <valuelist type="QVariantList" key="AutoTest.PathFilters"/>
    <value type="int" key="AutoTest.RunAfterBuild">1</value>

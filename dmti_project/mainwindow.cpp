@@ -74,7 +74,7 @@ void MainWindow::onTypeChanged(int index)
         ui->funcComboBox->addItems({"ADD_QQ_Q", "SUB_QQ_Q", "MUL_QQ_Q", "DIV_QQ_Q", "RED_Q_Q", "INT_Q_B", "TRANS_Z_Q",
                                     "TRANS_Q_Z"});
     else if (type == "Polynomial")
-        ui->funcComboBox->addItems({"ADD_PP_P", "SUB_PP_P", "MUL_PP_P", "MUL_Pxk_P", "MULL_PQ_P", "DIV_PP_P", "MOD_PP_P",
+        ui->funcComboBox->addItems({"ADD_PP_P", "SUB_PP_P", "MUL_PP_P", "MUL_Pxk_P", "MUL_PQ_P", "DIV_PP_P", "MOD_PP_P",
                                     "GCF_PP_P", "NMR_P_P", "DER_P_P", "DEG_P_N", "LED_P_Q", "FAC_P_Q"});
 
     ui->resultLabel->setText("Выберите функцию");
@@ -197,8 +197,7 @@ RationalNumber MainWindow::parseRational(const QString &s)
     return RationalNumber(s, "1");
 }
 
-PolynomialNumber MainWindow::parsePolynomial(const QString &s)
-{
+PolynomialNumber MainWindow::parsePolynomial(const QString &s) {
     QStringList coeffStrs = s.split(' ', Qt::SkipEmptyParts);
     if (coeffStrs.isEmpty()) {
         return PolynomialNumber();
@@ -209,8 +208,11 @@ PolynomialNumber MainWindow::parsePolynomial(const QString &s)
         coeffs.push_back(parseRational(c));
     }
 
-    int degree = static_cast<int>(coeffs.size()) - 1;
-    return PolynomialNumber(degree, coeffs);
+    PolynomialNumber result;
+    result.degree = static_cast<int>(coeffs.size()) - 1;
+    result.coefficients = coeffs;
+
+    return result;
 }
 
 // ==================== ОСНОВНАЯ ЛОГИКА ====================
@@ -404,7 +406,7 @@ QString MainWindow::executeOperation(const QString &type, const QString &func, c
         }
         else if (func == "DEG_P_N") {
             PolynomialNumber a = parsePolynomial(inputs[0]);
-            return QString::number(Polinomial().DEG_P_N(a).n);
+            return Polinomial().DEG_P_N(a).toString();;
         }
         else if (func == "LED_P_Q") {
             PolynomialNumber a = parsePolynomial(inputs[0]);
