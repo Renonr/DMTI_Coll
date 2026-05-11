@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setWindowTitle("Калькулятор");
+    setWindowTitle("Калькулятор коллоквиум");
     setMinimumSize(800, 600);
 
     auto *centralWidget = new QWidget(this);

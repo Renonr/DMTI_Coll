@@ -39,7 +39,7 @@ private slots:
     void onTypeChanged(int index);
     void onFunctionChanged(int index);
     void onCalculate();
-    void onSaveToFile();  // ✅ Новая функция для сохранения
+    void onSaveToFile();
 
 private:
     void clearFields();
@@ -52,10 +52,9 @@ private:
     QFormLayout *dynamicLayout;
     QList<QLineEdit*> fieldEditors;
 
-    // ✅ Виджеты для вывода с прокруткой
     QTextEdit *resultDisplay;
-    QPushButton *saveButton;  // ✅ Кнопка сохранения
-    QString lastResult;       // ✅ Хранение последнего результата для экспорта
+    QPushButton *saveButton;
+    QString lastResult;
 };
 
 #endif // MAINWINDOW_H
