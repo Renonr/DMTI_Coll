@@ -292,6 +292,7 @@ PolynomialNumber Polinomial::MOD_PP_P(const PolynomialNumber &p1, const Polynomi
 
     if (deg1 < deg2) {
         return p1;
+    }
 
     PolynomialNumber q = DIV_PP_P(p1, p2);
 
