@@ -1054,6 +1054,92 @@ void testNMR_P_P_square(){
     QCOMPARE(result.coefficients[1].toString(), QString("1/1"));
 }
 
+    // ===== DIV_PP_P (P-9) =====
+
+    // (x+1)/(x+1)=1
+    void testDIV_PP_P_same(){
+        std::vector<RationalNumber> c1 = {
+            RationalNumber("1","1"),
+            RationalNumber("1","1")
+        };
+
+        PolynomialNumber p1(1, c1);
+        PolynomialNumber p2(1, c1);
+
+        PolynomialNumber result = Polinomial::DIV_PP_P(p1, p2);
+
+        QCOMPARE(result.degree, 0);
+        QCOMPARE(result.coefficients[0].toString(), QString("1/1"));
+    }
+
+    // (x²+3x+2)/(x+1)=x+2
+    void testDIV_PP_P_simple(){
+        std::vector<RationalNumber> c1 = {
+            RationalNumber("1","1"),
+            RationalNumber("3","1"),
+            RationalNumber("2","1")
+        };
+
+        std::vector<RationalNumber> c2 = {
+            RationalNumber("1","1"),
+            RationalNumber("1","1")
+        };
+
+        PolynomialNumber p1(2, c1);
+        PolynomialNumber p2(1, c2);
+
+        PolynomialNumber result = Polinomial::DIV_PP_P(p1, p2);
+
+        QCOMPARE(result.degree, 1);
+        QCOMPARE(result.coefficients[0].toString(), QString("1/1"));
+        QCOMPARE(result.coefficients[1].toString(), QString("2/1"));
+    }
+
+    // степень делимого меньше степени делителя
+    void testDIV_PP_P_smallDegree(){
+        std::vector<RationalNumber> c1 = {
+            RationalNumber("1","1"),
+            RationalNumber("0","1")
+        };
+
+        std::vector<RationalNumber> c2 = {
+            RationalNumber("1","1"),
+            RationalNumber("0","1"),
+            RationalNumber("1","1")
+        };
+
+        PolynomialNumber p1(1, c1);
+        PolynomialNumber p2(2, c2);
+
+        PolynomialNumber result = Polinomial::DIV_PP_P(p1, p2);
+
+        QCOMPARE(result.degree, 0);
+        QCOMPARE(result.coefficients[0].toString(), QString("0/1"));
+    }
+
+    // P(x)/1=P(x)
+    void testDIV_PP_P_byOne(){
+        std::vector<RationalNumber> c1 = {
+            RationalNumber("5","1"),
+            RationalNumber("2","1"),
+            RationalNumber("7","1")
+        };
+
+        std::vector<RationalNumber> c2 = {
+            RationalNumber("1","1")
+        };
+
+        PolynomialNumber p1(2, c1);
+        PolynomialNumber p2(0, c2);
+
+        PolynomialNumber result = Polinomial::DIV_PP_P(p1, p2);
+
+        QCOMPARE(result.degree, 2);
+        QCOMPARE(result.coefficients[0].toString(), QString("5/1"));
+        QCOMPARE(result.coefficients[1].toString(), QString("2/1"));
+        QCOMPARE(result.coefficients[2].toString(), QString("7/1"));
+    }
+
 };
 
 

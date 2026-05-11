@@ -164,7 +164,38 @@ PolynomialNumber Polinomial::MUL_PP_P(const PolynomialNumber &p1, const Polynomi
 // Грачева Елизавета 5387
 PolynomialNumber Polinomial::DIV_PP_P(const PolynomialNumber &p1, const PolynomialNumber &p2)
 {
-    return PolynomialNumber();
+    if (DEG_P_N(p1).n < DEG_P_N(p2).n) {
+        return PolynomialNumber();
+    }
+
+    PolynomialNumber quotient;
+    PolynomialNumber remainder = p1;
+
+    while (DEG_P_N(remainder).n >= DEG_P_N(p2).n) {
+        int k = DEG_P_N(remainder).n - DEG_P_N(p2).n;
+
+        RationalNumber tempCoeff = DIV_QQ_Q(LED_P_Q(remainder), LED_P_Q(p2));
+
+        PolynomialNumber temp;
+        temp.degree = k;
+        temp.coefficients.clear();
+
+        temp.coefficients.push_back(tempCoeff);
+
+        for (int i = 0; i < k; i++) {
+            temp.coefficients.push_back(RationalNumber());
+        }
+
+        quotient = ADD_PP_P(quotient, temp);
+
+        PolynomialNumber subtractor = MUL_PQ_P(p2, tempCoeff);
+        subtractor = MUL_Pxk_P(subtractor, Number(QString::number(k)));
+
+        remainder = SUB_PP_P(remainder, subtractor);
+        remainder.degree = DEG_P_N(remainder).n;
+    }
+
+    return quotient;
 }
 
 // #42 P-10
