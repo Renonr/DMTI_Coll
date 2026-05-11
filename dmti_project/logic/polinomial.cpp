@@ -287,6 +287,12 @@ PolynomialNumber Polinomial::MOD_PP_P(const PolynomialNumber &p1, const Polynomi
         throw std::runtime_error("На ноль делить нельзя!");
     }
 
+    int deg1 = DEG_P_N(p1).toString().toInt();
+    int deg2 = DEG_P_N(p2).toString().toInt();
+
+    if (deg1 < deg2) {
+        return p1;
+
     PolynomialNumber q = DIV_PP_P(p1, p2);
 
     PolynomialNumber product = MUL_PP_P(q, p2);
