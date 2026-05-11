@@ -184,6 +184,9 @@ void MainWindow::onCalculate()
         inputs << val;
     }
 
+    QString type = ui->typeComboBox->currentText();
+    QString func = ui->funcComboBox->currentText();
+
     try {
         QString result = executeOperation(ui->typeComboBox->currentText(),
                                           ui->funcComboBox->currentText(),
@@ -304,7 +307,7 @@ void MainWindow::createFields(const QStringList &labels, const QString &type)
     else if (type == "Rational")
         rx.setPattern("^-?(0|[1-9][0-9]*)/[1-9][0-9]*$");
     else if (type == "Polynomial")
-        rx.setPattern(R"(^(-?(0|[1-9][0-9]*)/[1-9][0-9]*|-?(0|[1-9][0-9]*))(\s+(-?(0|[1-9][0-9]*)/[1-9][0-9]*|-?(0|[1-9][0-9]*)))*$)");
+        rx.setPattern(R"(^[-x^0-9+/ ]*$)");
 
     auto *validator = new QRegularExpressionValidator(rx, this);
 
@@ -342,20 +345,70 @@ RationalNumber MainWindow::parseRational(const QString &s)
 }
 
 PolynomialNumber MainWindow::parsePolynomial(const QString &s) {
-    QStringList coeffStrs = s.split(' ', Qt::SkipEmptyParts);
-    if (coeffStrs.isEmpty()) {
+    QString trimmed = s.trimmed();
+    if (trimmed.contains('x'))
+        return parsePolynomialExpr(trimmed);
+
+    QStringList coeffStrs = trimmed.split(' ', Qt::SkipEmptyParts);
+    if (coeffStrs.isEmpty())
         return PolynomialNumber();
-    }
 
     std::vector<RationalNumber> coeffs;
-    for (const QString &c : coeffStrs) {
+    for (const QString &c : coeffStrs)
         coeffs.push_back(parseRational(c));
-    }
 
     PolynomialNumber result;
     result.degree = static_cast<int>(coeffs.size()) - 1;
     result.coefficients = coeffs;
+    return result;
+}
 
+PolynomialNumber MainWindow::parsePolynomialExpr(const QString &expr) {
+    QString s = expr;
+    s.remove(' ');
+    if (s.isEmpty()) return PolynomialNumber();
+
+    if (s[0] != '+' && s[0] != '-') s.prepend('+');
+
+    QMap<int, QString> termMap;
+    QRegularExpression re(R"(([+-])([^+-]+))");
+    QRegularExpressionMatchIterator it = re.globalMatch(s);
+
+    while (it.hasNext()) {
+        QRegularExpressionMatch m = it.next();
+        QString sign = m.captured(1);
+        QString body = m.captured(2);
+        if (body.isEmpty()) continue;
+
+        int degree;
+        QString coeffStr;
+
+        int xi = body.indexOf('x');
+        if (xi >= 0) {
+            coeffStr = body.left(xi);
+            if (coeffStr.isEmpty()) coeffStr = "1";
+            if (xi + 1 < body.size() && body[xi + 1] == '^')
+                degree = body.mid(xi + 2).toInt();
+            else
+                degree = 1;
+        } else {
+            degree = 0;
+            coeffStr = body;
+        }
+
+        termMap[degree] = (sign == "-") ? ("-" + coeffStr) : coeffStr;
+    }
+
+    if (termMap.isEmpty()) return PolynomialNumber();
+
+    int maxDeg = termMap.lastKey();
+    std::vector<RationalNumber> coeffs(maxDeg + 1, RationalNumber("0", "1"));
+    for (auto jt = termMap.cbegin(); jt != termMap.cend(); ++jt)
+        coeffs[maxDeg - jt.key()] = parseRational(jt.value());
+
+    PolynomialNumber result;
+    result.degree = maxDeg;
+    result.coefficients = coeffs;
     return result;
 }
 
@@ -577,4 +630,20 @@ QString MainWindow::executeOperation(const QString &type, const QString &func, c
     }
 
     throw std::runtime_error("Функция не реализована: " + func.toStdString());
+}
+
+void MainWindow::saveResultToFile(const QString &type, const QString &func, const QStringList &inputs, const QString &result)
+{
+    QFile file("results.txt");
+    if (!file.open(QIODevice::Append | QIODevice::Text)) {
+        qWarning() << "Не удалось открыть results.txt для записи";
+        return;
+    }
+    QTextStream out(&file);
+    out.setEncoding(QStringConverter::Utf8);
+    out << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") << "\n";
+    out << "Тип: " << type << " | Функция: " << func << "\n";
+    out << "Входные данные: " << inputs.join(", ") << "\n";
+    out << "Результат: " << result << "\n";
+    out << "---\n";
 }
