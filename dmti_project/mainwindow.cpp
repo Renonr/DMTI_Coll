@@ -11,6 +11,9 @@
 #include <QComboBox>
 #include <QPushButton>
 #include <QLabel>
+#include <QFile>
+#include <QTextStream>
+#include <QDateTime>
 
 #include "logic/natural.h"
 #include "logic/integer.h"
@@ -121,14 +124,18 @@ void MainWindow::onCalculate()
         inputs << val;
     }
 
+    QString type = ui->typeComboBox->currentText();
+    QString func = ui->funcComboBox->currentText();
+
     try {
-        QString result = executeOperation(ui->typeComboBox->currentText(),
-                                          ui->funcComboBox->currentText(),
-                                          inputs);
+        QString result = executeOperation(type, func, inputs);
         ui->resultLabel->setText(result);
+        saveResultToFile(type, func, inputs, result);
     } catch (const std::exception &e) {
-        QMessageBox::critical(this, "Ошибка", QString::fromUtf8(e.what()));
+        QString errMsg = QString::fromUtf8(e.what());
+        QMessageBox::critical(this, "Ошибка", errMsg);
         ui->resultLabel->setText("Ошибка вычисления");
+        saveResultToFile(type, func, inputs, "ОШИБКА: " + errMsg);
     }
 }
 
@@ -170,7 +177,7 @@ void MainWindow::createFields(const QStringList &labels, const QString &type)
     else if (type == "Rational")
         rx.setPattern("^-?(0|[1-9][0-9]*)/[1-9][0-9]*$");
     else if (type == "Polynomial")
-        rx.setPattern(R"(^(-?(0|[1-9][0-9]*)/[1-9][0-9]*|-?(0|[1-9][0-9]*))(\s+(-?(0|[1-9][0-9]*)/[1-9][0-9]*|-?(0|[1-9][0-9]*)))*$)");
+        rx.setPattern(R"(^[-0-9/ ]*$)");
 
     auto *validator = new QRegularExpressionValidator(rx, this);
 
@@ -433,4 +440,20 @@ QString MainWindow::executeOperation(const QString &type, const QString &func, c
     }
 
     throw std::runtime_error("Функция не реализована: " + func.toStdString());
+}
+
+void MainWindow::saveResultToFile(const QString &type, const QString &func, const QStringList &inputs, const QString &result)
+{
+    QFile file("results.txt");
+    if (!file.open(QIODevice::Append | QIODevice::Text)) {
+        qWarning() << "Не удалось открыть results.txt для записи";
+        return;
+    }
+    QTextStream out(&file);
+    out.setEncoding(QStringConverter::Utf8);
+    out << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss") << "\n";
+    out << "Тип: " << type << " | Функция: " << func << "\n";
+    out << "Входные данные: " << inputs.join(", ") << "\n";
+    out << "Результат: " << result << "\n";
+    out << "---\n";
 }
