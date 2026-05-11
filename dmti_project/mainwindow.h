@@ -32,7 +32,6 @@ private:
     void clearFields();
     void createFields(const QStringList &labels, const QString &type);
     QString executeOperation(const QString &type, const QString &func, const QStringList &inputs);
-    void saveResultToFile(const QString &type, const QString &func, const QStringList &inputs, const QString &result);
     RationalNumber parseRational(const QString &s);
     PolynomialNumber parsePolynomial(const QString &s);
 
