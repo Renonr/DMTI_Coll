@@ -177,14 +177,17 @@ void MainWindow::createFields(const QStringList &labels, const QString &type)
     else if (type == "Rational")
         rx.setPattern("^-?(0|[1-9][0-9]*)/[1-9][0-9]*$");
     else if (type == "Polynomial")
-        rx.setPattern(R"(^[-0-9/ ]*$)");
+        rx.setPattern(R"(^[-x^0-9+/ ]*$)");
 
     auto *validator = new QRegularExpressionValidator(rx, this);
 
     for (const QString &label : labels) {
         auto *edit = new QLineEdit(this);
         edit->setValidator(validator);
-        edit->setPlaceholderText(label);
+        if (type == "Polynomial" && !label.contains("цифра"))
+            edit->setPlaceholderText("например: x^2+3/2x-1");
+        else
+            edit->setPlaceholderText(label);
         edit->setMinimumWidth(180);
 
         dynamicLayout->addRow(label + ":", edit);
@@ -205,20 +208,70 @@ RationalNumber MainWindow::parseRational(const QString &s)
 }
 
 PolynomialNumber MainWindow::parsePolynomial(const QString &s) {
-    QStringList coeffStrs = s.split(' ', Qt::SkipEmptyParts);
-    if (coeffStrs.isEmpty()) {
+    QString trimmed = s.trimmed();
+    if (trimmed.contains('x'))
+        return parsePolynomialExpr(trimmed);
+
+    QStringList coeffStrs = trimmed.split(' ', Qt::SkipEmptyParts);
+    if (coeffStrs.isEmpty())
         return PolynomialNumber();
-    }
 
     std::vector<RationalNumber> coeffs;
-    for (const QString &c : coeffStrs) {
+    for (const QString &c : coeffStrs)
         coeffs.push_back(parseRational(c));
-    }
 
     PolynomialNumber result;
     result.degree = static_cast<int>(coeffs.size()) - 1;
     result.coefficients = coeffs;
+    return result;
+}
 
+PolynomialNumber MainWindow::parsePolynomialExpr(const QString &expr) {
+    QString s = expr;
+    s.remove(' ');
+    if (s.isEmpty()) return PolynomialNumber();
+
+    if (s[0] != '+' && s[0] != '-') s.prepend('+');
+
+    QMap<int, QString> termMap;
+    QRegularExpression re(R"(([+-])([^+-]+))");
+    QRegularExpressionMatchIterator it = re.globalMatch(s);
+
+    while (it.hasNext()) {
+        QRegularExpressionMatch m = it.next();
+        QString sign = m.captured(1);
+        QString body = m.captured(2);
+        if (body.isEmpty()) continue;
+
+        int degree;
+        QString coeffStr;
+
+        int xi = body.indexOf('x');
+        if (xi >= 0) {
+            coeffStr = body.left(xi);
+            if (coeffStr.isEmpty()) coeffStr = "1";
+            if (xi + 1 < body.size() && body[xi + 1] == '^')
+                degree = body.mid(xi + 2).toInt();
+            else
+                degree = 1;
+        } else {
+            degree = 0;
+            coeffStr = body;
+        }
+
+        termMap[degree] = (sign == "-") ? ("-" + coeffStr) : coeffStr;
+    }
+
+    if (termMap.isEmpty()) return PolynomialNumber();
+
+    int maxDeg = termMap.lastKey();
+    std::vector<RationalNumber> coeffs(maxDeg + 1, RationalNumber("0", "1"));
+    for (auto jt = termMap.cbegin(); jt != termMap.cend(); ++jt)
+        coeffs[maxDeg - jt.key()] = parseRational(jt.value());
+
+    PolynomialNumber result;
+    result.degree = maxDeg;
+    result.coefficients = coeffs;
     return result;
 }
 
